@@ -18,7 +18,8 @@ let package = Package(
     targets: [
         .target(
             name: "People",
-            dependencies: []
+            dependencies: [],
+            resources: [.process("Localizable.xcstrings")]
         ),
         .testTarget(
             name: "PeopleTests",

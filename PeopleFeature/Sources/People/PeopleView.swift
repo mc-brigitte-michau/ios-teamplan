@@ -1,9 +1,11 @@
 import SwiftUI
 
-struct PeopleView: View {
-    var body: some View {
-        Text("People View")
+public struct PeopleView: View {
+    public var body: some View {
+        Text(String(localized: "title", bundle: .module))
     }
+
+    public init() {}
 }
 
 #Preview {

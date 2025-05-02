@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AddCVView: View {
     var body: some View {
-        Text("AddCV View")
+        Text(String(localized: "title", bundle: .module))
     }
 }
 

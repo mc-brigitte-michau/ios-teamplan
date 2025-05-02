@@ -1,17 +1,15 @@
-//
-//  TeamplanApp.swift
-//  Teamplan
-//
-//  Created by Brigitte Michau on 02.05.2025.
-//
-
 import SwiftUI
+import Theme
 
 @main
 struct TeamplanApp: App {
+
+    @StateObject var themeManager = ThemeManager()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(themeManager)
         }
     }
 }

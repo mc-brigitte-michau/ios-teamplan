@@ -20,15 +20,18 @@ let package = Package(
     targets: [
         .target(
             name: "CVList",
-            dependencies: []
+            dependencies: [],
+            resources: [.process("Localizable.xcstrings")]
         ),
         .target(
             name: "CVDetail",
-            dependencies: []
+            dependencies: [],
+            resources: [.process("Localizable.xcstrings")]
         ),
         .target(
             name: "AddCV",
-            dependencies: []
+            dependencies: [],
+            resources: [.process("Localizable.xcstrings")]
         ),
         .testTarget(
             name: "CVListTests",
