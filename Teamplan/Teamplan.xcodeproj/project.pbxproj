@@ -21,6 +21,7 @@
 		ECAE960D2DC4C28300C44575 /* TeamplanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TeamplanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECC62FE02DC4CE9E002B49C9 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Core; path = ../Core; sourceTree = SOURCE_ROOT; };
 		ECC62FE22DC4D956002B49C9 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Models; path = ../Models; sourceTree = SOURCE_ROOT; };
+		ECC62FE32DC4DCA3002B49C9 /* LoginFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LoginFeature; path = ../LoginFeature; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -57,6 +58,7 @@
 		ECAE95F42DC4C28200C44575 = {
 			isa = PBXGroup;
 			children = (
+				ECC62FE32DC4DCA3002B49C9 /* LoginFeature */,
 				ECC62FE22DC4D956002B49C9 /* Models */,
 				ECC62FE02DC4CE9E002B49C9 /* Core */,
 				ECAE95FF2DC4C28200C44575 /* Teamplan */,
