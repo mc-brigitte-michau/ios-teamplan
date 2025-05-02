@@ -22,6 +22,8 @@
 		ECC62FE02DC4CE9E002B49C9 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Core; path = ../Core; sourceTree = SOURCE_ROOT; };
 		ECC62FE22DC4D956002B49C9 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Models; path = ../Models; sourceTree = SOURCE_ROOT; };
 		ECC62FE32DC4DCA3002B49C9 /* LoginFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LoginFeature; path = ../LoginFeature; sourceTree = SOURCE_ROOT; };
+		ECC62FE42DC4DFE6002B49C9 /* PeopleFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PeopleFeature; path = ../PeopleFeature; sourceTree = SOURCE_ROOT; };
+		ECC62FE52DC4E16D002B49C9 /* CVFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CVFeature; path = ../CVFeature; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -58,6 +60,8 @@
 		ECAE95F42DC4C28200C44575 = {
 			isa = PBXGroup;
 			children = (
+				ECC62FE52DC4E16D002B49C9 /* CVFeature */,
+				ECC62FE42DC4DFE6002B49C9 /* PeopleFeature */,
 				ECC62FE32DC4DCA3002B49C9 /* LoginFeature */,
 				ECC62FE22DC4D956002B49C9 /* Models */,
 				ECC62FE02DC4CE9E002B49C9 /* Core */,
