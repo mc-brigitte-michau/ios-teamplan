@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct PeopleView: View {
+public struct PeopleScreen: View {
     public var body: some View {
         Text(String(localized: "title", bundle: .module))
     }
@@ -9,5 +9,5 @@ public struct PeopleView: View {
 }
 
 #Preview {
-    PeopleView()
+    PeopleScreen()
 }

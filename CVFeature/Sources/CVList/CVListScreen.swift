@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct CVListView: View {
+public struct CVListScreen: View {
     public var body: some View {
         Text(String(localized: "title", bundle: .module))
     }
@@ -10,5 +10,5 @@ public struct CVListView: View {
 }
 
 #Preview {
-    CVListView()
+    CVListScreen()
 }

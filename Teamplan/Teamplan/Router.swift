@@ -8,11 +8,11 @@ struct Router: View {
 
     var body: some View {
         TabView {
-            PeopleView()
+            PeopleScreen()
                 .tabItem {
                     Label("All CVs", systemImage: "person.3.fill")
             }
-            CVListView()
+            CVListScreen()
                 .tabItem {
                     Label("My CVs", systemImage: "person.fill")
                 }
