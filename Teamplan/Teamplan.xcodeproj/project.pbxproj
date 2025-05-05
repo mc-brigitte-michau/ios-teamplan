@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ECC62FEC2DC4E7A6002B49C9 /* PeopleFeature in Frameworks */ = {isa = PBXBuildFile; productRef = ECC62FEB2DC4E7A6002B49C9 /* PeopleFeature */; };
+		EC9FD3212DC8A0A500296F6C /* CandidatesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = EC9FD3202DC8A0A500296F6C /* CandidatesFeature */; };
 		ECC62FEE2DC4E7B5002B49C9 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = ECC62FED2DC4E7B5002B49C9 /* Core */; };
 		ECC62FF02DC4E7BD002B49C9 /* CVFeature in Frameworks */ = {isa = PBXBuildFile; productRef = ECC62FEF2DC4E7BD002B49C9 /* CVFeature */; };
 		ECC62FF22DC4E7C1002B49C9 /* LoginFeature in Frameworks */ = {isa = PBXBuildFile; productRef = ECC62FF12DC4E7C1002B49C9 /* LoginFeature */; };
@@ -31,7 +31,7 @@
 		ECAE960D2DC4C28300C44575 /* TeamplanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TeamplanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECC62FE02DC4CE9E002B49C9 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Core; path = ../Core; sourceTree = SOURCE_ROOT; };
 		ECC62FE22DC4D956002B49C9 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Models; path = ../Models; sourceTree = SOURCE_ROOT; };
-		ECC62FE42DC4DFE6002B49C9 /* PeopleFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PeopleFeature; path = ../PeopleFeature; sourceTree = SOURCE_ROOT; };
+		ECC62FE42DC4DFE6002B49C9 /* CandidatesFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CandidatesFeature; path = ../CandidatesFeature; sourceTree = SOURCE_ROOT; };
 		ECC62FE52DC4E16D002B49C9 /* CVFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CVFeature; path = ../CVFeature; sourceTree = SOURCE_ROOT; };
 		ECC62FE62DC4E462002B49C9 /* ProfileFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ProfileFeature; path = ../ProfileFeature; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -56,8 +56,8 @@
 			files = (
 				ECC62FF42DC4E7C5002B49C9 /* Models in Frameworks */,
 				ECC62FF62DC4E812002B49C9 /* ProfileFeature in Frameworks */,
-				ECC62FEC2DC4E7A6002B49C9 /* PeopleFeature in Frameworks */,
 				ECC62FF22DC4E7C1002B49C9 /* LoginFeature in Frameworks */,
+				EC9FD3212DC8A0A500296F6C /* CandidatesFeature in Frameworks */,
 				ECC62FEE2DC4E7B5002B49C9 /* Core in Frameworks */,
 				ECC62FF02DC4E7BD002B49C9 /* CVFeature in Frameworks */,
 			);
@@ -79,7 +79,7 @@
 				ECC62FE62DC4E462002B49C9 /* ProfileFeature */,
 				ECC62FE52DC4E16D002B49C9 /* CVFeature */,
 				EC5B96022DC4FCA500DBE779 /* LoginFeature */,
-				ECC62FE42DC4DFE6002B49C9 /* PeopleFeature */,
+				ECC62FE42DC4DFE6002B49C9 /* CandidatesFeature */,
 				ECC62FE22DC4D956002B49C9 /* Models */,
 				ECC62FE02DC4CE9E002B49C9 /* Core */,
 				ECAE95FF2DC4C28200C44575 /* Teamplan */,
@@ -125,12 +125,12 @@
 			);
 			name = Teamplan;
 			packageProductDependencies = (
-				ECC62FEB2DC4E7A6002B49C9 /* PeopleFeature */,
 				ECC62FED2DC4E7B5002B49C9 /* Core */,
 				ECC62FEF2DC4E7BD002B49C9 /* CVFeature */,
 				ECC62FF12DC4E7C1002B49C9 /* LoginFeature */,
 				ECC62FF32DC4E7C5002B49C9 /* Models */,
 				ECC62FF52DC4E812002B49C9 /* ProfileFeature */,
+				EC9FD3202DC8A0A500296F6C /* CandidatesFeature */,
 			);
 			productName = Teamplan;
 			productReference = ECAE95FD2DC4C28200C44575 /* Teamplan.app */;
@@ -499,9 +499,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		ECC62FEB2DC4E7A6002B49C9 /* PeopleFeature */ = {
+		EC9FD3202DC8A0A500296F6C /* CandidatesFeature */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = PeopleFeature;
+			productName = CandidatesFeature;
 		};
 		ECC62FED2DC4E7B5002B49C9 /* Core */ = {
 			isa = XCSwiftPackageProductDependency;

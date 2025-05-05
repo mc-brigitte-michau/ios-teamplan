@@ -1,5 +1,5 @@
 import SwiftUI
-import People
+import Candidates
 import CVList
 import Theme
 
@@ -8,7 +8,7 @@ struct Router: View {
 
     var body: some View {
         TabView {
-            PeopleScreen()
+            CandidatesScreen()
                 .tabItem {
                     Label("All CVs", systemImage: "person.3.fill")
             }

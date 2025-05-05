@@ -10,19 +10,24 @@ let package = Package(
         .library(
             name: "Models",
             targets: [
-                "Person",
-                "CV"
+                "CVStore",
+                "CandidateStore",
+                "UserStore"
             ]
         )
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "Person",
+            name: "CandidateStore",
             dependencies: []
         ),
         .target(
-            name: "CV",
+            name: "CVStore",
+            dependencies: []
+        ),
+        .target(
+            name: "UserStore",
             dependencies: []
         )
     ]

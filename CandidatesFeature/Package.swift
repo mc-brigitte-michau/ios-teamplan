@@ -4,26 +4,26 @@
 import PackageDescription
 
 let package = Package(
-    name: "PeopleFeature",
+    name: "CandidatesFeature",
     platforms: [.iOS(.v16)],
     products: [
         .library(
-            name: "PeopleFeature",
+            name: "CandidatesFeature",
             targets: [
-                "People"
+                "Candidates"
             ]
         )
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "People",
+            name: "Candidates",
             dependencies: [],
             resources: [.process("Localizable.xcstrings")]
         ),
         .testTarget(
-            name: "PeopleTests",
-            dependencies: ["People"]
+            name: "CandidatesTests",
+            dependencies: ["Candidates"]
         )
     ]
 )
