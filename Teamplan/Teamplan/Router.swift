@@ -2,6 +2,8 @@ import SwiftUI
 import Candidates
 import CVList
 import Theme
+import CandidateStore
+import Networking
 
 struct Router: View {
     @EnvironmentObject var themeManager: ThemeManager
@@ -26,11 +28,15 @@ struct Router_Previews: PreviewProvider {
         Group {
             Router()
                 .environmentObject(ThemeManager())
+                .environmentObject(CandidateStore.preview)
                 .preferredColorScheme(.light)
 
             Router()
                 .environmentObject(ThemeManager())
+                .environmentObject(CandidateStore.preview)
                 .preferredColorScheme(.dark)
         }
     }
 }
+
+

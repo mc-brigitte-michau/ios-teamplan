@@ -13,7 +13,6 @@ let package = Package(
                 "Authentication",
                 "DataStorage",
                 "Networking",
-                "Theme",
                 "Utilities"
             ]
         )
@@ -33,10 +32,6 @@ let package = Package(
             dependencies: []
         ),
         .target(
-            name: "Theme",
-            dependencies: []
-        ),
-        .target(
             name: "Utilities",
             dependencies: []
         ),
@@ -51,10 +46,6 @@ let package = Package(
         .testTarget(
             name: "NetworkingTests",
             dependencies: ["Networking"]
-        ),
-        .testTarget(
-            name: "ThemeTests",
-            dependencies: ["Theme"]
         ),
         .testTarget(
             name: "UtilitiesTests",

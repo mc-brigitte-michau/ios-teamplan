@@ -14,11 +14,17 @@ let package = Package(
             ]
         )
     ],
-    dependencies: [],
+    dependencies: [
+        .package(path: "../Models"),
+        .package(path: "../Presentation")
+    ],
     targets: [
         .target(
             name: "Candidates",
-            dependencies: [],
+            dependencies: [
+                .product(name: "CandidateStore", package: "Models"),
+                .product(name: "Presentation", package: "Presentation")
+            ],
             resources: [.process("Localizable.xcstrings")]
         ),
         .testTarget(

@@ -1,5 +1,6 @@
 import SwiftUI
 import Theme
+import CandidateStore
 
 struct ContentView: View {
 
