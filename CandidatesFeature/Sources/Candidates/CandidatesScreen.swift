@@ -8,15 +8,18 @@ public struct CandidatesScreen: View {
 
     @EnvironmentObject private var store: CandidateStore
     @State private var loadState: LoadState
+    @State private var searchText = ""
 
     public var body: some View {
-        VStack {
-            Text(String(localized: "title", bundle: .module))
-            contentView
-        }
-        .task(id: loadState) {
-            if loadState == .idle {
-                await loadCandidates()
+        NavigationStack {
+            VStack {
+                contentView
+            }
+            .navigationTitle(String(localized: "title", bundle: .module))
+            .task(id: loadState) {
+                if loadState == .idle {
+                    await loadCandidates()
+                }
             }
         }
     }
@@ -39,9 +42,10 @@ public struct CandidatesScreen: View {
     }
 
     private var candidatesList: some View {
-        List(store.candidates) { candidate in
+        List(filteredCandidates) { candidate in
             Text(candidate.name)
         }
+        .searchable(text: $searchText)
         .refreshable {
             await loadCandidates()
         }
@@ -64,6 +68,17 @@ private extension CandidatesScreen {
             }
         } catch {
             loadState = .failed(error.localizedDescription)
+        }
+    }
+
+    private var filteredCandidates: [Candidate] {
+        if searchText.isEmpty {
+            return store.candidates
+        } else {
+            let lowercasedSearch = searchText.lowercased()
+            return store.candidates.filter {
+                $0.name.lowercased().contains(lowercasedSearch)
+            }
         }
     }
 }

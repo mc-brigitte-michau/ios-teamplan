@@ -1,0 +1,12 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "All Resumes" : {
+      "extractionState" : "manual"
+    },
+    "My Resume" : {
+      "extractionState" : "manual"
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,9 +1,11 @@
 import SwiftUI
 
-struct AddCVScreen: View {
-    var body: some View {
+public struct AddCVScreen: View {
+    public var body: some View {
         Text(String(localized: "title", bundle: .module))
     }
+
+    public init() {}
 }
 
 #Preview {

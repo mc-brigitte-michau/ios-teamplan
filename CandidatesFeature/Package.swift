@@ -10,6 +10,7 @@ let package = Package(
         .library(
             name: "CandidatesFeature",
             targets: [
+                "CandidatesFeatureRouter",
                 "Candidates"
             ]
         )
@@ -19,6 +20,14 @@ let package = Package(
         .package(path: "../Presentation")
     ],
     targets: [
+        .target(
+            name: "CandidatesFeatureRouter",
+            dependencies: [
+                "Candidates",
+                .product(name: "CandidateStore", package: "Models"),
+                .product(name: "Presentation", package: "Presentation")
+            ]
+        ),
         .target(
             name: "Candidates",
             dependencies: [

@@ -1,0 +1,75 @@
+import SwiftUI
+import AddCV
+import CVList
+import CVStore
+import CVDetail
+import Theme
+
+public struct CVFeatureRouter: View {
+
+    @ObservedObject var cvStore: CVStore
+    @ObservedObject var themeManager: ThemeManager
+
+    @State private var route: CVRoute = .list
+    @State private var showingAddSheet: Bool = false
+
+    public var body: some View {
+        NavigationStack {
+            CVListScreen(
+                onEvent: { event in
+                    switch event {
+                    case let .select(cv):
+                        route = .detail(cv)
+
+                    case .add:
+                        route = .add
+                    }
+                }
+            )
+            .onChange(of: route) { newRoute in
+                switch newRoute {
+                case .list:
+                    cvStore.selected = nil
+                    showingAddSheet = false
+
+                case .detail(let cv):
+                    cvStore.selected = cv
+                    showingAddSheet = false
+
+                case .add:
+                    cvStore.selected = nil
+                    showingAddSheet = true
+                }
+            }
+            .navigationDestination(
+                isPresented:
+                    Binding(
+                        get: { cvStore.selected != nil },
+                        set: { isPresented in
+                            if !isPresented {
+                                cvStore.selected = nil
+                            }
+                        }
+                    )
+            ) {
+                   CVDetailScreen()
+            }
+            .sheet(isPresented: $showingAddSheet) {
+                AddCVScreen()
+                    .onDisappear {
+                        route = .list
+                    }
+            }
+        }
+        .environmentObject(cvStore)
+        .environmentObject(themeManager)
+    }
+
+    public init(
+        cvStore: CVStore,
+        themeManager: ThemeManager
+    ) {
+        self.cvStore = cvStore
+        self.themeManager = themeManager
+    }
+}

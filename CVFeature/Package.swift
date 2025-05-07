@@ -10,27 +10,50 @@ let package = Package(
         .library(
             name: "CVFeature",
             targets: [
+                "CVFeatureRouter",
                 "CVList",
                 "CVDetail",
                 "AddCV"
             ]
         )
     ],
-    dependencies: [],
+    dependencies: [
+        .package(path: "../Models"),
+        .package(path: "../Presentation")
+    ],
     targets: [
         .target(
+            name: "CVFeatureRouter",
+            dependencies: [
+                "CVList",
+                "CVDetail",
+                "AddCV",
+                .product(name: "CVStore", package: "Models"),
+                .product(name: "Presentation", package: "Presentation")
+            ]
+        ),
+        .target(
             name: "CVList",
-            dependencies: [],
+            dependencies: [
+                .product(name: "CVStore", package: "Models"),
+                .product(name: "Presentation", package: "Presentation")
+            ],
             resources: [.process("Localizable.xcstrings")]
         ),
         .target(
             name: "CVDetail",
-            dependencies: [],
+            dependencies: [
+                .product(name: "CVStore", package: "Models"),
+                .product(name: "Presentation", package: "Presentation")
+            ],
             resources: [.process("Localizable.xcstrings")]
         ),
         .target(
             name: "AddCV",
-            dependencies: [],
+            dependencies: [
+                .product(name: "CVStore", package: "Models"),
+                .product(name: "Presentation", package: "Presentation")
+            ],
             resources: [.process("Localizable.xcstrings")]
         ),
         .testTarget(

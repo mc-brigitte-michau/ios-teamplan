@@ -10,6 +10,7 @@ public protocol CandidateStoreProtocol: AnyObject, ObservableObject {
 public class CandidateStore: CandidateStoreProtocol {
 
     @Published public var candidates: [Candidate] = []
+
     private let httpClient: HTTPClient
 
     public init(httpClient: HTTPClient) {
@@ -17,7 +18,11 @@ public class CandidateStore: CandidateStoreProtocol {
     }
 
     public func fetchCandidates() async throws {
-        candidates = []
+        candidates = [
+            Candidate(name: "Alice"),
+            Candidate(name: "Bob"),
+            Candidate(name: "Charlie")
+        ]
     }
 }
 
@@ -38,6 +43,4 @@ extension CandidateStore {
            store.candidates = []
            return store
     }
-
-    struct DummyHTTPClient: HTTPClient {}
 }
