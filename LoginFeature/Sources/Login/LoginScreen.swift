@@ -1,3 +1,5 @@
+// TODO: extend Authentication to handle Cognito OAuth flow with Google
+
 import SwiftUI
 
 struct LoginScreen: View {

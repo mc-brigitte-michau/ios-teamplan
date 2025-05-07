@@ -1,3 +1,5 @@
+// TODO: Add search logic for name, skill, tech 
+
 import SwiftUI
 import CandidateStore
 import Presentation
@@ -10,37 +12,48 @@ public struct CandidatesScreen: View {
     public var body: some View {
         VStack {
             Text(String(localized: "title", bundle: .module))
-
-            switch loadState {
-            case .idle, .loading:
-                LoadingView(text: "Loading Candidates...")
-                    .task {
-                        await loadCandidates()
-                    }
-
-            case .loaded:
-                if store.candidates.isEmpty {
-                    Text("No candidates found.")
-                } else {
-                    List(store.candidates) { candidate in
-                        Text(candidate.name)
-                    }
-                }
-
-            case .empty:
-                Text("No candidates found.")
-
-            case .failed(let error):
-                Text("Failed to load candidates: \(error)")
+            contentView
+        }
+        .task(id: loadState) {
+            if loadState == .idle {
+                await loadCandidates()
             }
+        }
+    }
+
+    @ViewBuilder
+    private var contentView: some View {
+        switch loadState {
+        case .idle, .loading:
+            LoadingView(text: "Loading Candidates...")
+
+        case .loaded:
+            candidatesList
+
+        case .empty:
+            Text("No candidates found.")
+
+        case .failed(let error):
+            Text("Failed to load candidates: \(error)")
+        }
+    }
+
+    private var candidatesList: some View {
+        List(store.candidates) { candidate in
+            Text(candidate.name)
+        }
+        .refreshable {
+            await loadCandidates()
         }
     }
 
     public init(loadState: LoadState = .idle) {
         self._loadState = State(initialValue: loadState)
     }
+}
 
-    private func loadCandidates() async {
+private extension CandidatesScreen {
+    func loadCandidates() async {
         loadState = .loading
         do {
             try await store.fetchCandidates()
@@ -53,7 +66,6 @@ public struct CandidatesScreen: View {
             loadState = .failed(error.localizedDescription)
         }
     }
-
 }
 
 struct CandidatesScreen_Previews: PreviewProvider {
