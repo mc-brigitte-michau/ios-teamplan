@@ -25,7 +25,7 @@ let package = Package(
             name: "CandidatesFeatureRouter",
             dependencies: [
                 "Candidates",
-                .product(name: "CandidateStore", package: "Stores"),
+                .product(name: "CVStore", package: "Stores"),
                 .product(name: "Models", package: "Models"),
                 .product(name: "Presentation", package: "Presentation")
             ]
@@ -33,7 +33,7 @@ let package = Package(
         .target(
             name: "Candidates",
             dependencies: [
-                .product(name: "CandidateStore", package: "Stores"),
+                .product(name: "CVStore", package: "Stores"),
                 .product(name: "Presentation", package: "Presentation")
             ],
             resources: [.process("Localizable.xcstrings")]

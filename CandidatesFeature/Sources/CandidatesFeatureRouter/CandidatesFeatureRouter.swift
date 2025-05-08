@@ -1,24 +1,24 @@
 import SwiftUI
-import CandidateStore
+import CVStore
 import Theme
 import Candidates
 
 public struct CandidatesFeatureRouter: View {
 
-    @ObservedObject var candidateStore: CandidateStore
+    @ObservedObject var cvStore: CVStore
     @ObservedObject var themeManager: ThemeManager
 
     public var body: some View {
         CandidatesScreen()
-            .environmentObject(candidateStore)
+            .environmentObject(cvStore)
             .environmentObject(themeManager)
     }
 
     public init(
-        candidateStore: CandidateStore,
+        cvStore: CVStore,
         themeManager: ThemeManager
     ) {
-        self.candidateStore = candidateStore
+        self.cvStore = cvStore
         self.themeManager = themeManager
     }
 }

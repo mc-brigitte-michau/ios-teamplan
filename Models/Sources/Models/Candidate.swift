@@ -1,14 +1,20 @@
-import Foundation
 
-public struct Candidate: Codable, Identifiable {
-    public var id: String
-    public let name: String
+public struct Candidate: Codable, Identifiable, Equatable, Sendable {
+    public let id: String
+    public let resumes: [Resume]
+    public let fullName: String
+    public let email: String
+    public let idCode: String
 
-    public init(
-        id: String =  UUID().uuidString,
-        name: String
-    ) {
-        self.id = id
-        self.name = name
-    }
+    public var searchIndex: String = ""
+}
+
+extension Candidate {
+    public static let mock = Candidate(
+        id: "user-001",
+        resumes: [.mock],
+        fullName: "Barabar Cave",
+        email: "barabar.cave@mooncascade.com",
+        idCode: "49850347250"
+    )
 }

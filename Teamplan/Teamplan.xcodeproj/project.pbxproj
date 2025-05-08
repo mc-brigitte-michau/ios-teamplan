@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EC09700F2DCBA71F008281C0 /* CandidateStore in Frameworks */ = {isa = PBXBuildFile; productRef = EC09700E2DCBA71F008281C0 /* CandidateStore */; };
 		EC0970112DCBA726008281C0 /* CVStore in Frameworks */ = {isa = PBXBuildFile; productRef = EC0970102DCBA726008281C0 /* CVStore */; };
 		EC0970132DCBA72F008281C0 /* UserStore in Frameworks */ = {isa = PBXBuildFile; productRef = EC0970122DCBA72F008281C0 /* UserStore */; };
 		EC88947C2DCBA6F200478A60 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = EC88947B2DCBA6F200478A60 /* Models */; };
@@ -60,7 +59,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC09700F2DCBA71F008281C0 /* CandidateStore in Frameworks */,
 				ECC62FF62DC4E812002B49C9 /* ProfileFeature in Frameworks */,
 				ECC62FF22DC4E7C1002B49C9 /* LoginFeature in Frameworks */,
 				EC0970112DCBA726008281C0 /* CVStore in Frameworks */,
@@ -144,7 +142,6 @@
 				EC9FD3202DC8A0A500296F6C /* CandidatesFeature */,
 				ECA5E3AE2DCA5011004EB625 /* Presentation */,
 				EC88947B2DCBA6F200478A60 /* Models */,
-				EC09700E2DCBA71F008281C0 /* CandidateStore */,
 				EC0970102DCBA726008281C0 /* CVStore */,
 				EC0970122DCBA72F008281C0 /* UserStore */,
 			);
@@ -517,10 +514,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		EC09700E2DCBA71F008281C0 /* CandidateStore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CandidateStore;
-		};
 		EC0970102DCBA726008281C0 /* CVStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CVStore;

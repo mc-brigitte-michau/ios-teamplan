@@ -8,10 +8,6 @@ let package = Package(
     platforms: [.iOS(.v16)],
     products: [
         .library(
-            name: "CandidateStore",
-            targets: ["CandidateStore"]
-        ),
-        .library(
             name: "CVStore",
             targets: ["CVStore"]
         ),
@@ -25,13 +21,6 @@ let package = Package(
         .package(path: "../Models")
     ],
     targets: [
-        .target(
-            name: "CandidateStore",
-            dependencies: [
-                .product(name: "Core", package: "Core"),
-                .product(name: "Models", package: "Models")
-            ]
-        ),
         .target(
             name: "CVStore",
             dependencies: [

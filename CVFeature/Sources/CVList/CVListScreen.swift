@@ -39,18 +39,25 @@ public struct CVListScreen: View {
             LoadingView(text: "Loading CVs...")
 
         case .loaded:
-            List(cvStore.cvList) { cv in
-                Text(cv.resumeName)
+            VStack(alignment: .leading, spacing: 8) {
+                Text(cvStore.myResume?.fullName ?? "No Name")
+                Text(cvStore.myResume?.email ?? "No email")
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 16)
+
+            List(cvStore.myResume?.resumes ?? [], id: \.id) { resume in
+                Text(resume.resumeName)
                     .onTapGesture {
-                        onEvent(.select(cv))
-                    }
+                        onEvent(.select(resume))
+                   }
             }
 
         case .empty:
-            Text("No candidates found.")
+            Text("No resume found. Please add one.")
 
         case .failed(let error):
-            Text("Failed to load candidates: \(error)")
+            Text("Failed to load resume: \(error)")
         }
     }
 
@@ -68,7 +75,7 @@ private extension CVListScreen {
         loadState = .loading
         do {
             try await cvStore.fetchCVs()
-            if cvStore.cvList.isEmpty {
+            if cvStore.candidates.isEmpty {
                 loadState = .empty
             } else {
                 loadState = .loaded

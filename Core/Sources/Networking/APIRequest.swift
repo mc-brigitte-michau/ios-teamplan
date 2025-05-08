@@ -23,7 +23,7 @@ public struct Empty: Codable {}
 
 /// Gets a list of all CVs
 public struct ListCVsRequest: APIRequest {
-    public typealias Response = Resumes
+    public typealias Response = [Candidate]
     public typealias Body = Empty
 
     public let endpoint = "/cv"
@@ -35,7 +35,7 @@ public struct ListCVsRequest: APIRequest {
 
 /// Gets one single CV
 public struct ListCVRequest: APIRequest {
-    public typealias Response = Resumes
+    public typealias Response = Candidate
     public typealias Body = Empty
 
     public var endpoint: String { "/cv/{id}" }
@@ -52,7 +52,7 @@ public struct ListCVRequest: APIRequest {
 
 /// Create new CV
 public struct CreateCVRequest: APIRequest {
-    public typealias Response = Resumes
+    public typealias Response = Candidate
     public typealias Body = Resume
 
     public let endpoint = "/cv"
@@ -68,7 +68,7 @@ public struct CreateCVRequest: APIRequest {
 
 // Update a CV
 public struct UpdateCVRequest: APIRequest {
-    public typealias Response = Resumes
+    public typealias Response = Candidate
     public typealias Body = Resume
 
     public let endpoint = "/cv/{id}"

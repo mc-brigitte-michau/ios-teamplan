@@ -1,13 +1,13 @@
 // TODO: Add search logic for name, skill, tech 
 
 import SwiftUI
-import CandidateStore
+import CVStore
 import Presentation
 import Models
 
 public struct CandidatesScreen: View {
 
-    @EnvironmentObject private var store: CandidateStore
+    @EnvironmentObject private var store: CVStore
     @State private var loadState: LoadState
     @State private var searchText = ""
 
@@ -44,7 +44,7 @@ public struct CandidatesScreen: View {
 
     private var candidatesList: some View {
         List(filteredCandidates) { candidate in
-            Text(candidate.name)
+            Text(candidate.fullName)
         }
         .searchable(text: $searchText)
         .refreshable {
@@ -61,7 +61,7 @@ private extension CandidatesScreen {
     func loadCandidates() async {
         loadState = .loading
         do {
-            try await store.fetchCandidates()
+            try await store.fetchCVs()
             if store.candidates.isEmpty {
                 loadState = .empty
             } else {
@@ -77,8 +77,8 @@ private extension CandidatesScreen {
             return store.candidates
         } else {
             let lowercasedSearch = searchText.lowercased()
-            return store.candidates.filter {
-                $0.name.lowercased().contains(lowercasedSearch)
+            return store.candidates.filter { candidate in
+                candidate.searchIndex.contains(lowercasedSearch)
             }
         }
     }
@@ -88,15 +88,15 @@ struct CandidatesScreen_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             CandidatesScreen(loadState: .loaded)
-                .environmentObject(CandidateStore.preview)
+                .environmentObject(CVStore.preview)
                 .previewDisplayName("Loaded with candidates")
 
             CandidatesScreen(loadState: .empty)
-                .environmentObject(CandidateStore.previewEmpty)
+                .environmentObject(CVStore.previewEmpty)
                 .previewDisplayName("Empty state")
 
             CandidatesScreen(loadState: .failed("Network error"))
-                .environmentObject(CandidateStore.previewEmpty)
+                .environmentObject(CVStore.previewEmpty)
                 .previewDisplayName("Failed state")
         }
     }
