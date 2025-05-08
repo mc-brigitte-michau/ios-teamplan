@@ -1,8 +1,9 @@
 import CVStore
+import Models
 
-public enum CVRoute {    
+public enum CVRoute {
     case list
-    case detail(CV)
+    case detail(Resume)
     case add
 }
 

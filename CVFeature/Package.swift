@@ -18,6 +18,7 @@ let package = Package(
         )
     ],
     dependencies: [
+        .package(path: "../Stores"),
         .package(path: "../Models"),
         .package(path: "../Presentation")
     ],
@@ -28,14 +29,15 @@ let package = Package(
                 "CVList",
                 "CVDetail",
                 "AddCV",
-                .product(name: "CVStore", package: "Models"),
+                .product(name: "CVStore", package: "Stores"),
                 .product(name: "Presentation", package: "Presentation")
             ]
         ),
         .target(
             name: "CVList",
             dependencies: [
-                .product(name: "CVStore", package: "Models"),
+                .product(name: "CVStore", package: "Stores"),
+                .product(name: "Models", package: "Models"),
                 .product(name: "Presentation", package: "Presentation")
             ],
             resources: [.process("Localizable.xcstrings")]
@@ -43,7 +45,8 @@ let package = Package(
         .target(
             name: "CVDetail",
             dependencies: [
-                .product(name: "CVStore", package: "Models"),
+                .product(name: "CVStore", package: "Stores"),
+                .product(name: "Models", package: "Models"),
                 .product(name: "Presentation", package: "Presentation")
             ],
             resources: [.process("Localizable.xcstrings")]
@@ -51,7 +54,8 @@ let package = Package(
         .target(
             name: "AddCV",
             dependencies: [
-                .product(name: "CVStore", package: "Models"),
+                .product(name: "CVStore", package: "Stores"),
+                .product(name: "Models", package: "Models"),
                 .product(name: "Presentation", package: "Presentation")
             ],
             resources: [.process("Localizable.xcstrings")]

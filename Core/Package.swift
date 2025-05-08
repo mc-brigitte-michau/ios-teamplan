@@ -17,7 +17,9 @@ let package = Package(
             ]
         )
     ],
-    dependencies: [],
+    dependencies: [
+        .package(path: "../Models")
+    ],
     targets: [
         .target(
             name: "Authentication",
@@ -29,7 +31,9 @@ let package = Package(
         ),
         .target(
             name: "Networking",
-            dependencies: []
+            dependencies: [
+                .product(name: "Models", package: "Models")
+            ]
         ),
         .target(
             name: "Utilities",

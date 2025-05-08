@@ -40,7 +40,7 @@ public struct CVListScreen: View {
 
         case .loaded:
             List(cvStore.cvList) { cv in
-                Text(cv.name)
+                Text(cv.resumeName)
                     .onTapGesture {
                         onEvent(.select(cv))
                     }

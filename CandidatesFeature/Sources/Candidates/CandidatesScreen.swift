@@ -3,6 +3,7 @@
 import SwiftUI
 import CandidateStore
 import Presentation
+import Models
 
 public struct CandidatesScreen: View {
 

@@ -1,17 +1,18 @@
 import Foundation
 import Networking
+import Models
 
 @MainActor
 public protocol CVStoreProtocol: AnyObject, ObservableObject {
-    var cvList: [CV] { get set }
-    var selected: CV? { get set }
+    var cvList: [Resume] { get set }
+    var selected: Resume? { get set }
     func fetchCVs() async throws
 }
 
 public class CVStore: CVStoreProtocol {
 
-    @Published public var cvList: [CV] = []
-    @Published public var selected: CV? = nil
+    @Published public var cvList: [Resume] = []
+    @Published public var selected: Resume? = nil
 
     private let httpClient: HTTPClient
 
@@ -21,9 +22,7 @@ public class CVStore: CVStoreProtocol {
 
     public func fetchCVs() async throws {
         cvList = [
-            CV(name: "A"),
-            CV(name: "B"),
-            CV(name: "C")
+            .mock
         ]
         selected = nil
     }
@@ -34,9 +33,7 @@ extension CVStore {
     public static var preview: CVStore {
         let store = CVStore(httpClient: DummyHTTPClient())
         store.cvList = [
-            CV(name: "A"),
-            CV(name: "B"),
-            CV(name: "C")
+            .mock
         ]
         store.selected = nil
         return store

@@ -1,5 +1,6 @@
 import Foundation
 import Networking
+import Models
 
 @MainActor
 public protocol CandidateStoreProtocol: AnyObject, ObservableObject {

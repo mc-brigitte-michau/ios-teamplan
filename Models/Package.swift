@@ -8,47 +8,15 @@ let package = Package(
     platforms: [.iOS(.v16)],
     products: [
         .library(
-            name: "CandidateStore",
-            targets: ["CandidateStore"]
-        ),
-        .library(
-            name: "CVStore",
-            targets: ["CVStore"]
-        ),
-        .library(
-            name: "UserStore",
-            targets: ["UserStore"]
-        ),
-        .library(
             name: "Models",
-            targets: [
-                "CVStore",
-                "CandidateStore",
-                "UserStore"
-            ]
+            targets: ["Models"]
         )
     ],
-    dependencies: [
-        .package(path: "../Core")
-    ],
+    dependencies: [],
     targets: [
         .target(
-            name: "CandidateStore",
-            dependencies: [
-                .product(name: "Core", package: "Core")
-            ]
-        ),
-        .target(
-            name: "CVStore",
-            dependencies: [
-                .product(name: "Core", package: "Core")
-            ]
-        ),
-        .target(
-            name: "UserStore",
-            dependencies: [
-                .product(name: "Core", package: "Core")
-            ]
+            name: "Models",
+            dependencies: []
         )
     ]
 )

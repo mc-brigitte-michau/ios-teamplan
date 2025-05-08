@@ -1,6 +1,7 @@
 import CVStore
+import Models
 
 public enum CVListEvent {
-    case select(CV)
+    case select(Resume)
     case add
 }
