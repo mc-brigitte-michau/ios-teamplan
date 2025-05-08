@@ -7,6 +7,11 @@ public protocol CVStoreProtocol: AnyObject, ObservableObject {
     var cvList: [Resume] { get set }
     var selected: Resume? { get set }
     func fetchCVs() async throws
+    func fetchVC(id: String) async throws -> Resume?
+    func create(resume: Resume) async throws -> Resume?
+    func update(resume: Resume) async throws -> Resume?
+    func delete(id: String) async throws
+    func getImage(id: String) async throws -> URL?
 }
 
 public class CVStore: CVStoreProtocol {
@@ -25,6 +30,26 @@ public class CVStore: CVStoreProtocol {
             .mock
         ]
         selected = nil
+    }
+
+    public func fetchVC(id: String) async throws -> Resume? {
+        fatalError("not implemented")
+    }
+
+    public func create(resume: Resume) async throws -> Resume? {
+        fatalError("not implemented")
+    }
+
+    public func update(resume: Resume) async throws -> Resume? {
+        fatalError("not implemented")
+    }
+
+    public func delete(id: String) async throws {
+        fatalError("not implemented")
+    }
+
+    public func getImage(id: String) async throws -> URL? {
+        fatalError("not implemented")
     }
 }
 
