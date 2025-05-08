@@ -1,7 +1,7 @@
 import Foundation
 import Models
 
-public protocol APIRequest {
+public protocol APIRequest: Sendable {
     associatedtype Response: Decodable
     associatedtype Body: Encodable
 
@@ -19,7 +19,7 @@ public  extension APIRequest {
     }
 }
 
-public struct Empty: Codable {}
+public struct Empty: Codable, Sendable {}
 
 /// Gets a list of all CVs
 public struct ListCVsRequest: APIRequest {
@@ -31,6 +31,7 @@ public struct ListCVsRequest: APIRequest {
     public let pathParameters: [String: String] = [:]
     public let queryParameters: [String: String] = [:]
     public let body: Body? = nil
+    public init() {}
 }
 
 /// Gets one single CV
@@ -111,5 +112,8 @@ public struct GetCVImageRequest: APIRequest {
     public var pathParameters: [String: String] { ["cv_id": cvID] }
     public let queryParameters: [String: String] = [:]
     public let body: Body? = nil
+    public init(cvID: String) {
+        self.cvID = cvID
+    }
 }
 

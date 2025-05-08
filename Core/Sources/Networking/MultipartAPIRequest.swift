@@ -1,6 +1,6 @@
 import Foundation
 
-public  protocol MultipartAPIRequest {
+public  protocol MultipartAPIRequest: Sendable {
     associatedtype Response: Decodable
 
     var endpoint: String { get }

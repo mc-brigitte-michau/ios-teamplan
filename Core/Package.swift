@@ -32,6 +32,7 @@ let package = Package(
         .target(
             name: "Networking",
             dependencies: [
+                "Utilities",
                 .product(name: "Models", package: "Models")
             ]
         ),

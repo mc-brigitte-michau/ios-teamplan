@@ -7,50 +7,29 @@ public protocol CVStoreProtocol: AnyObject, ObservableObject {
     var candidates: [Candidate] { get set }
     var myResume: Candidate? { get set }
     var selected: Resume? { get set }
-    func fetchCVs() async throws
-    func fetchVC(id: String) async throws -> Candidate?
-    func create(resume: Candidate) async throws -> Candidate?
-    func update(resume: Candidate) async throws -> Candidate?
-    func delete(id: String) async throws
-    func getImage(id: String) async throws -> URL?
+    func fetchResumes() async throws
+
 }
 
-public class CVStore: CVStoreProtocol {
+public class CVStore: CVStoreProtocol, @unchecked Sendable {
 
     @Published public var candidates: [Candidate] = []
     @Published public var myResume: Candidate? = nil
     @Published public var selected: Resume? = nil
 
-    private let httpClient: HTTPClient
+    private let service: CVService
 
-    public init(httpClient: HTTPClient) {
-        self.httpClient = httpClient
+    public func fetchResumes() async throws {
+        let result = try await service.fetchCVs()
+        candidates = CVStore.indexCandidates(result)
+        myResume = candidates.first
+        // https://v2.teamplan.io/my-resume/anneli.mutso@gmail.com
+
+        // @brigitte find out how this should work
     }
 
-    public func fetchCVs() async throws {
-        candidates = CVStore.indexCandidates([.mock])
-        myResume = .mock
-        selected = nil
-    }
-
-    public func fetchVC(id: String) async throws -> Candidate? {
-        .mock
-    }
-
-    public func create(resume: Candidate) async throws -> Candidate? {
-        .mock
-    }
-
-    public func update(resume: Candidate) async throws -> Candidate? {
-        fatalError("not implemented")
-    }
-
-    public func delete(id: String) async throws {
-        fatalError("not implemented")
-    }
-
-    public func getImage(id: String) async throws -> URL? {
-        fatalError("not implemented")
+    public init(service: CVService) {
+        self.service = service
     }
 }
 
@@ -64,20 +43,20 @@ private extension CVStore {
     }
 
     static func generateSearchIndex(for candidate: Candidate) -> String {
-        let skillsText = candidate.resumes.flatMap {
+        let skillsText = candidate.resumes?.flatMap {
             $0.skills.data.flatMap { $0.details.map { $0.label } }
         }.joined(separator: " ")
-        let techsText = candidate.resumes.flatMap {
+        let techsText = candidate.resumes?.flatMap {
             $0.projects.data.flatMap { $0.technologies.map { $0.label } }
         }.joined(separator: " ")
-        return "\(candidate.fullName) \(skillsText) \(techsText)".lowercased()
+        return "\(candidate.fullName) \(skillsText ?? "") \(techsText ?? "")".lowercased()
     }
 }
 
 extension CVStore {
 
     public static var preview: CVStore {
-        let store = CVStore(httpClient: DummyHTTPClient())
+        let store = CVStore(service: DummyCVService())
         store.candidates = indexCandidates([.mock])
         store.myResume = .mock
         store.selected = nil
@@ -85,7 +64,7 @@ extension CVStore {
     }
 
     public static var previewEmpty: CVStore {
-        let store = CVStore(httpClient: DummyHTTPClient())
+        let store = CVStore(service: DummyCVService())
         store.candidates = []
         store.selected = nil
         store.myResume = nil

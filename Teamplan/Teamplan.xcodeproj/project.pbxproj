@@ -41,9 +41,22 @@
 		ECFA395A2DCB9D89007AF3C8 /* Stores */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Stores; path = ../Stores; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		EC275C0C2DCCEC1F0019F143 /* Exceptions for "Teamplan" folder in "Teamplan" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = ECAE95FC2DC4C28200C44575 /* Teamplan */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		ECAE95FF2DC4C28200C44575 /* Teamplan */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EC275C0C2DCCEC1F0019F143 /* Exceptions for "Teamplan" folder in "Teamplan" target */,
+			);
 			path = Teamplan;
 			sourceTree = "<group>";
 		};
@@ -256,6 +269,8 @@
 /* Begin XCBuildConfiguration section */
 		ECAE961F2DC4C28300C44575 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = ECAE95FF2DC4C28200C44575 /* Teamplan */;
+			baseConfigurationReferenceRelativePath = Debug.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -320,6 +335,8 @@
 		};
 		ECAE96202DC4C28300C44575 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = ECAE95FF2DC4C28200C44575 /* Teamplan */;
+			baseConfigurationReferenceRelativePath = Release.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -377,6 +394,8 @@
 		};
 		ECAE96222DC4C28300C44575 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = ECAE95FF2DC4C28200C44575 /* Teamplan */;
+			baseConfigurationReferenceRelativePath = Debug.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -386,6 +405,7 @@
 				DEVELOPMENT_TEAM = W3CJ6X343D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Teamplan/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -411,6 +431,8 @@
 		};
 		ECAE96232DC4C28300C44575 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = ECAE95FF2DC4C28200C44575 /* Teamplan */;
+			baseConfigurationReferenceRelativePath = Release.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -420,6 +442,7 @@
 				DEVELOPMENT_TEAM = W3CJ6X343D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Teamplan/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

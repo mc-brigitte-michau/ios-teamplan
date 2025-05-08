@@ -24,9 +24,11 @@ public struct CVListScreen: View {
                     }
                 }
             }
-            .task(id: loadState) {
+            .onAppear {
                 if loadState == .idle {
-                    await loadCVs()
+                    Task {
+                        await loadCVs()
+                    }
                 }
             }
         }
@@ -41,7 +43,7 @@ public struct CVListScreen: View {
         case .loaded:
             VStack(alignment: .leading, spacing: 8) {
                 Text(cvStore.myResume?.fullName ?? "No Name")
-                Text(cvStore.myResume?.email ?? "No email")
+                Text(cvStore.myResume?.id ?? "No email")
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
@@ -74,7 +76,7 @@ private extension CVListScreen {
     func loadCVs() async {
         loadState = .loading
         do {
-            try await cvStore.fetchCVs()
+            try await cvStore.fetchResumes()
             if cvStore.candidates.isEmpty {
                 loadState = .empty
             } else {

@@ -2,17 +2,18 @@ import SwiftUI
 import Networking
 import Theme
 import CVStore
+import Utilities
 
 @main
 struct TeamplanApp: App {
-
-    let httpClient = HTTPClientImpl()
 
     @StateObject var themeManager = ThemeManager()
     @StateObject var cvStore: CVStore
 
     init() {
-        let cvStore = CVStore(httpClient: httpClient)
+        let httpClient = HTTPClientImpl(baseURL: Bundle.main.apiRoot)
+        let cvService = CVServiceImpl(httpClient: httpClient)
+        let cvStore = CVStore(service: cvService)
         _cvStore = StateObject(wrappedValue: cvStore)
     }
 

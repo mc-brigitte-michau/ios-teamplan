@@ -1,5 +1,3 @@
-// TODO: Add search logic for name, skill, tech 
-
 import SwiftUI
 import CVStore
 import Presentation
@@ -17,9 +15,11 @@ public struct CandidatesScreen: View {
                 contentView
             }
             .navigationTitle(String(localized: "title", bundle: .module))
-            .task(id: loadState) {
+            .onAppear {
                 if loadState == .idle {
-                    await loadCandidates()
+                    Task {
+                        await loadCandidates()
+                    }
                 }
             }
         }
@@ -47,9 +47,6 @@ public struct CandidatesScreen: View {
             Text(candidate.fullName)
         }
         .searchable(text: $searchText)
-        .refreshable {
-            await loadCandidates()
-        }
     }
 
     public init(loadState: LoadState = .idle) {
@@ -61,7 +58,7 @@ private extension CandidatesScreen {
     func loadCandidates() async {
         loadState = .loading
         do {
-            try await store.fetchCVs()
+            try await store.fetchResumes()
             if store.candidates.isEmpty {
                 loadState = .empty
             } else {
