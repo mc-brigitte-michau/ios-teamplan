@@ -12,7 +12,8 @@ let package = Package(
             targets: [
                 "Authentication",
                 "DataStorage",
-                "Utilities"
+                "Utilities",
+                "Logging"
             ]
         )
     ],
@@ -28,6 +29,10 @@ let package = Package(
         ),
         .target(
             name: "Utilities",
+            dependencies: []
+        ),
+        .target(
+            name: "Logging",
             dependencies: []
         ),
         .testTarget(

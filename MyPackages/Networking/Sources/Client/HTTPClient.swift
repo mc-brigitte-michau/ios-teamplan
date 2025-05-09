@@ -1,6 +1,7 @@
 import Foundation
 import Models
 import Requests
+import Logging
 
 public protocol HTTPClient {
     func send<T: APIRequest>(_ request: T) async throws -> T.Response where T.Response: Sendable
@@ -17,27 +18,48 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
     }
 
     public func send<T: APIRequest>(_ request: T) async throws -> T.Response where T.Response: Sendable  {
+        AppLogger.network.debug("Request started: \(request.method) \(request.endpoint)")
+
         let urlRequest = try buildRequest(request)
         let (data, response) = try await session.data(for: urlRequest)
+        AppLogger.network.debug("Received response: \(request.method) \(request.endpoint)")
+
         try validateResponse(data, response: response)
-        return try JSONDecoder().decode(T.Response.self, from: data)
+#if DEBUG
+        let log = logNetwork(request.method, endpoint: request.endpoint, data: data)
+        AppLogger.network.debug("\(log)")
+#endif
+        guard let decoded = JSONDecoder().decodeDebug(T.Response.self, from: data) else {
+            AppLogger.network.error("Decoding Failed")
+            throw HTTPClientError.decodingError
+        }
+        return decoded
     }
 
     public func send<T: MultipartAPIRequest>(_ request: T) async throws -> T.Response where T.Response: Sendable {
         let urlRequest = buildMultipartRequest(request)
         let (data, response) = try await session.data(for: urlRequest)
         try validateResponse(data, response: response)
-        return try JSONDecoder().decode(T.Response.self, from: data)
+#if DEBUG
+        let log = logNetwork(request.method, endpoint: request.endpoint, data: data)
+        AppLogger.network.debug("\(log)")
+#endif
+        guard let decoded = JSONDecoder().decodeDebug(T.Response.self, from: data) else {
+            throw HTTPClientError.decodingError
+        }
+        return decoded
     }
 
     func validateResponse(_ data: Data?, response: URLResponse) throws {
         guard let httpResponse = response as? HTTPURLResponse else {
+            AppLogger.network.error("Invalid HTTP Response")
             throw HTTPClientError.invalidResponse
         }
 
         guard (200...299).contains(httpResponse.statusCode) else {
+            AppLogger.network.error("Status Code: \(httpResponse.statusCode)")
             let responseText = data.flatMap { String(data: $0, encoding: .utf8) } ?? "No response body"
-            throw HTTPClientError.httpError(statusCode: httpResponse.statusCode, body: responseText)
+            throw HTTPClientError.serverError(statusCode: httpResponse.statusCode, body: responseText)
         }
     }
 }
@@ -70,8 +92,8 @@ extension HTTPClientImpl {
         urlRequest.setValue("*/*", forHTTPHeaderField: "Accept")
 
         // FIXME:  **VERY IMPORTANT**: send If-None-Match with the latest ETag
-//        let etagValue = #"W/"65a-tkdZSPtsMOfZ1aSNE9H97BksrPc""#
-//        urlRequest.setValue(etagValue, forHTTPHeaderField: "If-None-Match")
+        //        let etagValue = #"W/"65a-tkdZSPtsMOfZ1aSNE9H97BksrPc""#
+        //        urlRequest.setValue(etagValue, forHTTPHeaderField: "If-None-Match")
 
         if let bodyData = request.bodyData {
             urlRequest.httpBody = bodyData
@@ -115,4 +137,26 @@ extension HTTPClientImpl {
     }
 }
 
+extension HTTPClientImpl {
+    func logNetwork(_ method: String, endpoint: String, data: Data?) -> String {
+    return ("""
+    🕒 \(Date())
+    🔁 \(method) \(endpoint)
+    📦 JSON:
+    \(prettyPrintedJSON(from: data) ?? "⚠️ Invalid or empty data")
 
+    """)
+    }
+
+    private func prettyPrintedJSON(from data: Data?) -> String? {
+        guard let data else { return nil }
+        do {
+            let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+            let prettyData = try JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted])
+            return String(data: prettyData, encoding: .utf8)
+        } catch {
+            AppLogger.network.debug("❌ Failed to pretty-print JSON:, \(error)")
+            return nil
+        }
+    }
+}
