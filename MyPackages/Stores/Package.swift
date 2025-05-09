@@ -34,6 +34,10 @@ let package = Package(
                 .product(name: "Networking", package: "Networking"),
                 .product(name: "Models", package: "Models")
             ]
+        ),
+        .testTarget(
+            name: "CVStoreTests",
+            dependencies: ["CVStore"]
         )
     ]
 )

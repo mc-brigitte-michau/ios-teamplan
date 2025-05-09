@@ -1,10 +1,3 @@
-//
-//  TeamplanTests.swift
-//  TeamplanTests
-//
-//  Created by Brigitte Michau on 02.05.2025.
-//
-
 import Testing
 @testable import Teamplan
 

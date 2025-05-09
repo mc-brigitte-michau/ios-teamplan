@@ -1,12 +1,14 @@
 import Models
 import Foundation
 
-public struct DummyCVService: CVService {
+public struct MockCVService: CVService {
+
+    public var candidatesToReturn: [Candidate] = []
 
     public init() {}
 
     public func fetchCVs() async throws -> [Candidate] {
-        [.mock]
+        candidatesToReturn
     }
 
     public func fetchVC(id: String) async throws -> Candidate? {

@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "32D667FB-3DE9-427E-ACAE-B7E0E0900656",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Teamplan.xcodeproj",
+      "identifier" : "ECAE95FC2DC4C28200C44575",
+      "name" : "Teamplan"
+    }
+  },
+  "testTargets" : [
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Teamplan.xcodeproj",
+        "identifier" : "ECAE960C2DC4C28300C44575",
+        "name" : "TeamplanTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/MyPackages\/Stores",
+        "identifier" : "CVStoreTests",
+        "name" : "CVStoreTests"
+      }
+    }
+  ],
+  "version" : 1
+}

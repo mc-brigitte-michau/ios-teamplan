@@ -3,7 +3,7 @@ import Models
 
 extension CVStore {
     public static var preview: CVStore {
-        let store = CVStore(service: DummyCVService())
+        let store = CVStore(service: MockCVService())
         store.candidates = indexCandidates([.mock])
         store.myResume = .mock
         store.selected = nil
@@ -11,7 +11,7 @@ extension CVStore {
     }
 
     public static var previewEmpty: CVStore {
-        let store = CVStore(service: DummyCVService())
+        let store = CVStore(service: MockCVService())
         store.candidates = []
         store.selected = nil
         store.myResume = nil
@@ -19,7 +19,7 @@ extension CVStore {
     }
 
     public static var previewSelected: CVStore {
-        let store = CVStore(service: DummyCVService())
+        let store = CVStore(service: MockCVService())
         store.candidates = indexCandidates([.mock])
         store.myResume = .mock
         store.selected = .mock
