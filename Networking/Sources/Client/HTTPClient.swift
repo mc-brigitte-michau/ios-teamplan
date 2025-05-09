@@ -1,22 +1,13 @@
-// API client
-// Request building
-// Response parsing 
-
 import Foundation
 import Models
+import Requests
 
 public protocol HTTPClient {
     func send<T: APIRequest>(_ request: T) async throws -> T.Response where T.Response: Sendable
     func send<T: MultipartAPIRequest>(_ request: T) async throws -> T.Response where T.Response: Sendable
 }
 
-public enum HTTPClientError: Error {
-    case invalidResponse
-    case httpError(statusCode: Int, body: String)
-}
-
 public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
-
     private let session: URLSession
     private let baseURL: String
 
@@ -52,38 +43,6 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
 }
 
 extension HTTPClientImpl {
-    func buildMultipartRequest(_ request: some MultipartAPIRequest) -> URLRequest {
-        let boundary = UUID().uuidString
-        var urlRequest = URLRequest(
-            url: URL(string: baseURL + request.endpoint)!,
-            cachePolicy: .reloadIgnoringLocalCacheData
-        )
-
-        urlRequest.httpMethod = request.method
-        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
-        var body = Data()
-
-        for (key, value) in request.fields {
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
-            body.append("\(value)\r\n".data(using: .utf8)!)
-        }
-
-        for file in request.files {
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"\(file.name)\"; filename=\"\(file.filename)\"\r\n".data(using: .utf8)!)
-            body.append("Content-Type: \(file.mimeType)\r\n\r\n".data(using: .utf8)!)
-            body.append(file.data)
-            body.append("\r\n".data(using: .utf8)!)
-        }
-
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-
-        urlRequest.httpBody = body
-
-        return urlRequest
-    }
 
     func buildRequest(_ request: some APIRequest) throws -> URLRequest {
         var path = request.endpoint
@@ -113,11 +72,44 @@ extension HTTPClientImpl {
         // FIXME:  **VERY IMPORTANT**: send If-None-Match with the latest ETag
 //        let etagValue = #"W/"65a-tkdZSPtsMOfZ1aSNE9H97BksrPc""#
 //        urlRequest.setValue(etagValue, forHTTPHeaderField: "If-None-Match")
-        
+
         if let bodyData = request.bodyData {
             urlRequest.httpBody = bodyData
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
+
+        return urlRequest
+    }
+
+    func buildMultipartRequest(_ request: some MultipartAPIRequest) -> URLRequest {
+        let boundary = UUID().uuidString
+        var urlRequest = URLRequest(
+            url: URL(string: baseURL + request.endpoint)!,
+            cachePolicy: .reloadIgnoringLocalCacheData
+        )
+
+        urlRequest.httpMethod = request.method
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var body = Data()
+
+        for (key, value) in request.fields {
+            body.append("--\(boundary)\r\n".data(using: .utf8)!)
+            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+            body.append("\(value)\r\n".data(using: .utf8)!)
+        }
+
+        for file in request.files {
+            body.append("--\(boundary)\r\n".data(using: .utf8)!)
+            body.append("Content-Disposition: form-data; name=\"\(file.name)\"; filename=\"\(file.filename)\"\r\n".data(using: .utf8)!)
+            body.append("Content-Type: \(file.mimeType)\r\n\r\n".data(using: .utf8)!)
+            body.append(file.data)
+            body.append("\r\n".data(using: .utf8)!)
+        }
+
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+
+        urlRequest.httpBody = body
 
         return urlRequest
     }

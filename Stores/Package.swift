@@ -17,21 +17,21 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(path: "../Core"),
-        .package(path: "../Models")
+        .package(path: "../Models"),
+        .package(path: "../Networking")
     ],
     targets: [
         .target(
             name: "CVStore",
             dependencies: [
-                .product(name: "Core", package: "Core"),
+                .product(name: "Networking", package: "Networking"),
                 .product(name: "Models", package: "Models")
             ]
         ),
         .target(
             name: "UserStore",
             dependencies: [
-                .product(name: "Core", package: "Core"),
+                .product(name: "Networking", package: "Networking"),
                 .product(name: "Models", package: "Models")
             ]
         )

@@ -1,8 +1,7 @@
 import SwiftUI
-import Networking
+import Services
 import Theme
 import CVStore
-import Utilities
 
 @main
 struct TeamplanApp: App {
@@ -11,9 +10,8 @@ struct TeamplanApp: App {
     @StateObject var cvStore: CVStore
 
     init() {
-        let httpClient = HTTPClientImpl(baseURL: Bundle.main.apiRoot)
-        let cvService = CVServiceImpl(httpClient: httpClient)
-        let cvStore = CVStore(service: cvService)
+        let env = AppEnvironment()
+        let cvStore = CVStore(service: env.cvService)
         _cvStore = StateObject(wrappedValue: cvStore)
     }
 

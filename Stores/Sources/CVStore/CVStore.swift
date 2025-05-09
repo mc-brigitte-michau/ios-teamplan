@@ -1,5 +1,5 @@
 import Foundation
-import Networking
+import Services
 import Models
 
 @MainActor
@@ -8,7 +8,6 @@ public protocol CVStoreProtocol: AnyObject, ObservableObject {
     var myResume: Candidate? { get set }
     var selected: Resume? { get set }
     func fetchResumes() async throws
-
 }
 
 public class CVStore: CVStoreProtocol, @unchecked Sendable {
@@ -24,7 +23,6 @@ public class CVStore: CVStoreProtocol, @unchecked Sendable {
         candidates = CVStore.indexCandidates(result)
         myResume = candidates.first
         // https://v2.teamplan.io/my-resume/anneli.mutso@gmail.com
-
         // @brigitte find out how this should work
     }
 
@@ -33,7 +31,8 @@ public class CVStore: CVStoreProtocol, @unchecked Sendable {
     }
 }
 
-private extension CVStore {
+extension CVStore {
+
     static func indexCandidates(_ candidates: [Candidate]) -> [Candidate] {
         candidates.map { candidate in
             var updated = candidate
@@ -53,21 +52,4 @@ private extension CVStore {
     }
 }
 
-extension CVStore {
 
-    public static var preview: CVStore {
-        let store = CVStore(service: DummyCVService())
-        store.candidates = indexCandidates([.mock])
-        store.myResume = .mock
-        store.selected = nil
-        return store
-    }
-
-    public static var previewEmpty: CVStore {
-        let store = CVStore(service: DummyCVService())
-        store.candidates = []
-        store.selected = nil
-        store.myResume = nil
-        return store
-    }
-}

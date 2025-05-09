@@ -12,6 +12,7 @@
 		EC88947C2DCBA6F200478A60 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = EC88947B2DCBA6F200478A60 /* Models */; };
 		EC9FD3212DC8A0A500296F6C /* CandidatesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = EC9FD3202DC8A0A500296F6C /* CandidatesFeature */; };
 		ECA5E3AF2DCA5011004EB625 /* Presentation in Frameworks */ = {isa = PBXBuildFile; productRef = ECA5E3AE2DCA5011004EB625 /* Presentation */; };
+		ECA69E8A2DCDEB1500681C36 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = ECA69E892DCDEB1500681C36 /* Networking */; };
 		ECC62FEE2DC4E7B5002B49C9 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = ECC62FED2DC4E7B5002B49C9 /* Core */; };
 		ECC62FF02DC4E7BD002B49C9 /* CVFeature in Frameworks */ = {isa = PBXBuildFile; productRef = ECC62FEF2DC4E7BD002B49C9 /* CVFeature */; };
 		ECC62FF22DC4E7C1002B49C9 /* LoginFeature in Frameworks */ = {isa = PBXBuildFile; productRef = ECC62FF12DC4E7C1002B49C9 /* LoginFeature */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EC1016A32DCDE58500877508 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Networking; path = ../Networking; sourceTree = SOURCE_ROOT; };
 		EC5B96022DC4FCA500DBE779 /* LoginFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LoginFeature; path = ../LoginFeature; sourceTree = SOURCE_ROOT; };
 		ECA5E3AD2DCA4BB4004EB625 /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Presentation; path = ../Presentation; sourceTree = SOURCE_ROOT; };
 		ECAE95FD2DC4C28200C44575 /* Teamplan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teamplan.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +82,7 @@
 				ECC62FEE2DC4E7B5002B49C9 /* Core in Frameworks */,
 				ECC62FF02DC4E7BD002B49C9 /* CVFeature in Frameworks */,
 				EC88947C2DCBA6F200478A60 /* Models in Frameworks */,
+				ECA69E8A2DCDEB1500681C36 /* Networking in Frameworks */,
 				ECA5E3AF2DCA5011004EB625 /* Presentation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,6 +106,7 @@
 				EC5B96022DC4FCA500DBE779 /* LoginFeature */,
 				ECC62FE22DC4D956002B49C9 /* Models */,
 				ECFA395A2DCB9D89007AF3C8 /* Stores */,
+				EC1016A32DCDE58500877508 /* Networking */,
 				ECC62FE02DC4CE9E002B49C9 /* Core */,
 				ECA5E3AD2DCA4BB4004EB625 /* Presentation */,
 				ECAE95FF2DC4C28200C44575 /* Teamplan */,
@@ -157,6 +161,7 @@
 				EC88947B2DCBA6F200478A60 /* Models */,
 				EC0970102DCBA726008281C0 /* CVStore */,
 				EC0970122DCBA72F008281C0 /* UserStore */,
+				ECA69E892DCDEB1500681C36 /* Networking */,
 			);
 			productName = Teamplan;
 			productReference = ECAE95FD2DC4C28200C44575 /* Teamplan.app */;
@@ -556,6 +561,10 @@
 		ECA5E3AE2DCA5011004EB625 /* Presentation */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Presentation;
+		};
+		ECA69E892DCDEB1500681C36 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Networking;
 		};
 		ECC62FED2DC4E7B5002B49C9 /* Core */ = {
 			isa = XCSwiftPackageProductDependency;

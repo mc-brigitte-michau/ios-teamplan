@@ -1,4 +1,3 @@
-
 public struct Candidate: Codable, Identifiable, Equatable, Sendable {
     public let id: String
     public let resumes: [Resume]?
@@ -11,14 +10,4 @@ public struct Candidate: Codable, Identifiable, Equatable, Sendable {
     private enum CodingKeys: String, CodingKey {
         case id, resumes, fullName, email, idCode
     }
-}
-
-extension Candidate {
-    public static let mock = Candidate(
-        id: "user-001",
-        resumes: [.mock],
-        fullName: "Barabar Cave",
-        email: "barabar.cave@mooncascade.com",
-        idCode: "49850347250"
-    )
 }

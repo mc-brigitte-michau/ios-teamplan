@@ -1,5 +1,7 @@
 import Models
 import Foundation
+import Client
+import Requests
 
 public protocol CVService: Sendable {
     func fetchCVs() async throws -> [Candidate]
@@ -14,9 +16,9 @@ public actor CVServiceImpl: CVService {
 
     private let httpClient: HTTPClient & Sendable
 
-        public init(httpClient: HTTPClient & Sendable) {
-            self.httpClient = httpClient
-        }
+    public init(httpClient: HTTPClient & Sendable) {
+        self.httpClient = httpClient
+    }
 
     public func fetchCVs() async throws -> [Candidate] {
         let request = ListCVsRequest()
@@ -46,31 +48,4 @@ public actor CVServiceImpl: CVService {
 }
 
 
-public struct DummyCVService: CVService {
 
-    public init() {}
-
-    public func fetchCVs() async throws -> [Candidate] {
-        [.mock]
-    }
-
-    public func fetchVC(id: String) async throws -> Candidate? {
-        .mock
-    }
-
-    public func create(resume: Candidate) async throws -> Candidate? {
-        .mock
-    }
-
-    public func update(resume: Candidate) async throws -> Candidate? {
-        .mock
-    }
-
-    public func delete(id: String) async throws {
-
-    }
-
-    public func getImage(id: String) async throws -> URL? {
-        nil
-    }
-}

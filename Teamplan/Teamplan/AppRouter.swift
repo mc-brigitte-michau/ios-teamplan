@@ -1,11 +1,10 @@
 import SwiftUI
 import Candidates
 import Theme
-import Networking
 import CandidatesFeatureRouter
-import CVStore // @brigitte = combine the whole feature in import
-import CVList
+import CVStore
 import CVFeatureRouter
+import CVList
 
 struct AppRouter: View {
     @ObservedObject var cvStore: CVStore

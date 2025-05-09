@@ -17,4 +17,5 @@ public struct CVDetailScreen: View {
 
 #Preview {
     CVDetailScreen()
+        .environmentObject(CVStore.previewSelected)
 }
