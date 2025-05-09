@@ -1,3 +1,5 @@
+import Models
+
 /// Get image for a CV /api/files/{cv_id}
 public struct GetCVImageRequest: APIRequest {
     public typealias Response = UploadResponse

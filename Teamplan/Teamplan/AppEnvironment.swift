@@ -11,7 +11,7 @@ final class AppEnvironment {
     let cvService: CVService
 
     init() {
-        self.themeManager = ThemeManager()
+        themeManager = ThemeManager()
         httpClient = HTTPClientImpl(baseURL: Bundle.main.apiRoot)
         cvService = CVServiceImpl(httpClient: httpClient)
     }
