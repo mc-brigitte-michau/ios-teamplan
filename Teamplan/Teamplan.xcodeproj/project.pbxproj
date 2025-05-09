@@ -30,17 +30,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EC1016A32DCDE58500877508 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Networking; path = ../Networking; sourceTree = SOURCE_ROOT; };
-		EC5B96022DC4FCA500DBE779 /* LoginFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LoginFeature; path = ../LoginFeature; sourceTree = SOURCE_ROOT; };
-		ECA5E3AD2DCA4BB4004EB625 /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Presentation; path = ../Presentation; sourceTree = SOURCE_ROOT; };
+		EC18AF012DCE155E00B50832 /* CandidatesFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CandidatesFeature; path = ../MyPackages/CandidatesFeature; sourceTree = SOURCE_ROOT; };
+		EC18AF022DCE155E00B50832 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Core; path = ../MyPackages/Core; sourceTree = SOURCE_ROOT; };
+		EC18AF032DCE155E00B50832 /* CVFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CVFeature; path = ../MyPackages/CVFeature; sourceTree = SOURCE_ROOT; };
+		EC18AF042DCE155E00B50832 /* LoginFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LoginFeature; path = ../MyPackages/LoginFeature; sourceTree = SOURCE_ROOT; };
+		EC18AF052DCE155E00B50832 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Models; path = ../MyPackages/Models; sourceTree = SOURCE_ROOT; };
+		EC18AF062DCE155E00B50832 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Networking; path = ../MyPackages/Networking; sourceTree = SOURCE_ROOT; };
+		EC18AF072DCE155E00B50832 /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Presentation; path = ../MyPackages/Presentation; sourceTree = SOURCE_ROOT; };
+		EC18AF082DCE155E00B50832 /* ProfileFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ProfileFeature; path = ../MyPackages/ProfileFeature; sourceTree = SOURCE_ROOT; };
+		EC18AF092DCE155E00B50832 /* Stores */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Stores; path = ../MyPackages/Stores; sourceTree = SOURCE_ROOT; };
 		ECAE95FD2DC4C28200C44575 /* Teamplan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teamplan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECAE960D2DC4C28300C44575 /* TeamplanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TeamplanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		ECC62FE02DC4CE9E002B49C9 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Core; path = ../Core; sourceTree = SOURCE_ROOT; };
-		ECC62FE22DC4D956002B49C9 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Models; path = ../Models; sourceTree = SOURCE_ROOT; };
-		ECC62FE42DC4DFE6002B49C9 /* CandidatesFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CandidatesFeature; path = ../CandidatesFeature; sourceTree = SOURCE_ROOT; };
-		ECC62FE52DC4E16D002B49C9 /* CVFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CVFeature; path = ../CVFeature; sourceTree = SOURCE_ROOT; };
-		ECC62FE62DC4E462002B49C9 /* ProfileFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ProfileFeature; path = ../ProfileFeature; sourceTree = SOURCE_ROOT; };
-		ECFA395A2DCB9D89007AF3C8 /* Stores */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Stores; path = ../Stores; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -100,15 +100,15 @@
 		ECAE95F42DC4C28200C44575 = {
 			isa = PBXGroup;
 			children = (
-				ECC62FE42DC4DFE6002B49C9 /* CandidatesFeature */,
-				ECC62FE52DC4E16D002B49C9 /* CVFeature */,
-				ECC62FE62DC4E462002B49C9 /* ProfileFeature */,
-				EC5B96022DC4FCA500DBE779 /* LoginFeature */,
-				ECC62FE22DC4D956002B49C9 /* Models */,
-				ECFA395A2DCB9D89007AF3C8 /* Stores */,
-				EC1016A32DCDE58500877508 /* Networking */,
-				ECC62FE02DC4CE9E002B49C9 /* Core */,
-				ECA5E3AD2DCA4BB4004EB625 /* Presentation */,
+				EC18AF012DCE155E00B50832 /* CandidatesFeature */,
+				EC18AF032DCE155E00B50832 /* CVFeature */,
+				EC18AF082DCE155E00B50832 /* ProfileFeature */,
+				EC18AF042DCE155E00B50832 /* LoginFeature */,
+				EC18AF072DCE155E00B50832 /* Presentation */,
+				EC18AF092DCE155E00B50832 /* Stores */,
+				EC18AF062DCE155E00B50832 /* Networking */,
+				EC18AF022DCE155E00B50832 /* Core */,
+				EC18AF052DCE155E00B50832 /* Models */,
 				ECAE95FF2DC4C28200C44575 /* Teamplan */,
 				ECAE96102DC4C28300C44575 /* TeamplanTests */,
 				ECC62FEA2DC4E7A6002B49C9 /* Frameworks */,

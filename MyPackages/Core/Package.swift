@@ -16,9 +16,7 @@ let package = Package(
             ]
         )
     ],
-    dependencies: [
-        .package(path: "../Models")
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "Authentication",
