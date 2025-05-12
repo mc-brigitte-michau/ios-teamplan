@@ -4,6 +4,7 @@ import Foundation
 public struct MockCVService: CVService {
 
     public var candidatesToReturn: [Candidate] = []
+    public var candidateToReturn: Candidate?
 
     public init() {}
 
@@ -12,7 +13,7 @@ public struct MockCVService: CVService {
     }
 
     public func fetchVC(id: String) async throws -> Candidate? {
-        .mock
+        candidateToReturn
     }
 
     public func create(resume: Candidate) async throws -> Candidate? {

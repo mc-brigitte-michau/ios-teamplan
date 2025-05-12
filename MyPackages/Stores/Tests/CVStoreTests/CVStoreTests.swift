@@ -11,9 +11,7 @@ struct CVStoreTests {
     func testFetchResumesPopulatesCandidates() async throws {
         // Given
         var mockService = MockCVService()
-        mockService.candidatesToReturn = [
-            .mock
-        ]
+        mockService.candidatesToReturn = [ .mock ]
         let store = CVStore(service: mockService)
 
         // When
@@ -23,5 +21,22 @@ struct CVStoreTests {
         #expect(store.candidates.count == 1)
         #expect(store.candidates.first?.fullName == Candidate.mock.fullName)
         #expect(store.candidates.first?.searchIndex == "barabar cave swift swiftui")
+    }
+
+    @Test
+    @MainActor
+    func testFetchResumeWithIdPopulatesCandidate() async throws {
+
+        // Given
+        var mockService = MockCVService()
+        mockService.candidateToReturn = .mock
+        let store = CVStore(service: mockService)
+
+        // When
+        try await store.fetchResume(for: "barabar.cave@mooncascade.com")
+
+        // Then
+        #expect(store.myResume?.fullName == Candidate.mock.fullName)
+        #expect(store.myResume?.resumes?.count == 1)
     }
 }

@@ -26,6 +26,11 @@ public class CVStore: CVStoreProtocol, @unchecked Sendable {
         // @brigitte find out how this should work
     }
 
+    public func fetchResume(for id: String) async throws {
+        let result = try await service.fetchVC(id: id)
+        myResume = result // not sure what the purpose is of fetching a cv with id
+    }
+
     public init(service: CVService) {
         self.service = service
     }

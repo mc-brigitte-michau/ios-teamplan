@@ -27,7 +27,9 @@ public actor CVServiceImpl: CVService {
     }
 
     public func fetchVC(id: String) async throws -> Candidate? {
-        .mock
+        let request = ListCVRequest(id: id)
+        let response: Candidate = try await httpClient.send(request)
+        return response
     }
 
     public func create(resume: Candidate) async throws -> Candidate? {
