@@ -21,7 +21,12 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
         AppLogger.network.debug("Request started: \(request.method) \(request.endpoint)")
 
         let urlRequest = try buildRequest(request)
-        let (data, response) = try await session.data(for: urlRequest)
+        let (data, response) = try await withTimeout(seconds: 10) { [weak self] () async throws -> (Data, URLResponse) in
+            guard let self else {
+                throw HTTPClientError.generalError
+            }
+            return try await self.session.data(for: urlRequest)
+        }
         AppLogger.network.debug("Received response: \(request.method) \(request.endpoint)")
 
         try validateResponse(data, response: response)
@@ -48,6 +53,24 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
             throw HTTPClientError.decodingError
         }
         return decoded
+    }
+
+    func withTimeout<T: Sendable>(
+        seconds timeout: TimeInterval,
+        operation: @escaping @Sendable () async throws -> T
+    ) async throws -> T {
+        try await withThrowingTaskGroup(of: T.self) { group in
+            group.addTask {
+                try await operation()
+            }
+            group.addTask {
+                try await Task.sleep(nanoseconds: UInt64(timeout * 1_000_000_000))
+                throw HTTPClientError.timedOut
+            }
+            let result = try await group.next()!
+            group.cancelAll()
+            return result
+        }
     }
 
     func validateResponse(_ data: Data?, response: URLResponse) throws {

@@ -2,6 +2,7 @@ import SwiftUI
 import ViewState
 import CVStore
 import Presentation
+import Models
 
 public struct CVListScreen: View {
     
@@ -49,10 +50,14 @@ public struct CVListScreen: View {
             .padding(.horizontal, 16)
 
             List(cvStore.myResume?.resumes ?? [], id: \.id) { resume in
-                Text(resume.resumeName)
-                    .onTapGesture {
-                        onEvent(.select(resume))
-                   }
+                HStack {
+                    Text(resume.resumeName)
+                    Spacer()
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    onEvent(.select(resume))
+                }
             }
 
         case .empty:
@@ -83,7 +88,11 @@ private extension CVListScreen {
                 loadState = .loaded
             }
         } catch {
-            loadState = .failed(error.localizedDescription)
+            if let clientError = error as? HTTPClientError {
+                loadState = .failed(clientError.displayMessage)
+            } else {
+                loadState = .failed(error.localizedDescription)
+            }
         }
     }
 }
