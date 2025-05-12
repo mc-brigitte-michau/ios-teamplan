@@ -2,8 +2,15 @@ import Services
 import Models
 
 extension CVStore {
+
+    private static var mockCVService: MockCVService {
+        var service = MockCVService()
+        service.candidatesToReturn = [.mock]
+        return service
+    }
+
     public static var preview: CVStore {
-        let store = CVStore(service: MockCVService())
+        let store = CVStore(service: mockCVService)
         store.candidates = indexCandidates([.mock])
         store.myResume = .mock
         store.selected = nil
@@ -19,7 +26,7 @@ extension CVStore {
     }
 
     public static var previewSelected: CVStore {
-        let store = CVStore(service: MockCVService())
+        let store = CVStore(service: mockCVService)
         store.candidates = indexCandidates([.mock])
         store.myResume = .mock
         store.selected = .mock
