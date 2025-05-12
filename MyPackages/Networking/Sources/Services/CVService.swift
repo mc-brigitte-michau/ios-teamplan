@@ -6,9 +6,10 @@ import Requests
 public protocol CVService: Sendable {
     func fetchCVs() async throws -> [Candidate]
     func fetchVC(id: String) async throws -> Candidate?
-    func create(resume: Candidate) async throws -> Candidate?
+    func create(resume: CreateResume) async throws -> Candidate?
     func update(resume: Candidate) async throws -> Candidate?
-    func delete(id: String) async throws
+    @discardableResult
+    func delete(id: String) async throws -> Empty
     func getImage(id: String) async throws -> URL?
 }
 
@@ -22,26 +23,28 @@ public actor CVServiceImpl: CVService {
 
     public func fetchCVs() async throws -> [Candidate] {
         let request = ListCVsRequest()
-        let response: [Candidate] = try await httpClient.send(request)
-        return response
+        return try await httpClient.send(request: request)
     }
 
     public func fetchVC(id: String) async throws -> Candidate? {
         let request = ListCVRequest(id: id)
-        let response: Candidate = try await httpClient.send(request)
-        return response
+        return try await httpClient.send(request: request)
     }
 
-    public func create(resume: Candidate) async throws -> Candidate? {
-        .mock
+    public func create(resume: CreateResume) async throws -> Candidate? {
+        let request = CreateCVRequest(resume: resume)
+        return try await httpClient.send(request: request)
     }
 
     public func update(resume: Candidate) async throws -> Candidate? {
-        fatalError("not implemented")
+        let request = UpdateCVRequest(resume: resume)
+        return try await httpClient.send(request: request)
     }
 
-    public func delete(id: String) async throws {
-        fatalError("not implemented")
+    @discardableResult
+    public func delete(id: String) async throws -> Empty {
+        let request = DeleteCVRequest(id: id)
+        return try await httpClient.send(request: request)
     }
 
     public func getImage(id: String) async throws -> URL? {

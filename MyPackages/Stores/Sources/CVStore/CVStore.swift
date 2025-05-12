@@ -6,15 +6,20 @@ import Models
 public protocol CVStoreProtocol: AnyObject, ObservableObject {
     var candidates: [Candidate] { get set }
     var myResume: Candidate? { get set }
-    var selected: Resume? { get set }
+    var currentCandidate: Candidate? { get set }
+    var currentResume: Resume? { get set }
+
     func fetchResumes() async throws
+    func fetchResume(for id: String) async throws
+    func createResume(resume: CreateResume) async throws
 }
 
 public class CVStore: CVStoreProtocol, @unchecked Sendable {
 
     @Published public var candidates: [Candidate] = []
     @Published public var myResume: Candidate? = nil
-    @Published public var selected: Resume? = nil
+    @Published public var currentCandidate: Candidate? = nil
+    @Published public var currentResume: Resume? = nil
 
     private let service: CVService
 
@@ -28,7 +33,21 @@ public class CVStore: CVStoreProtocol, @unchecked Sendable {
 
     public func fetchResume(for id: String) async throws {
         let result = try await service.fetchVC(id: id)
-        myResume = result // not sure what the purpose is of fetching a cv with id
+        currentCandidate = result
+    }
+
+    public func createResume(resume: CreateResume) async throws {
+        let result = try await service.create(resume: resume)
+        currentCandidate = result
+    }
+
+    public func updateResume(resume: Candidate) async throws {
+        let result = try await service.update(resume: resume)
+        currentCandidate = result
+    }
+
+    public func deleteResume(for id: String) async throws {
+        let _ = try await service.delete(id: id)
     }
 
     public init(service: CVService) {

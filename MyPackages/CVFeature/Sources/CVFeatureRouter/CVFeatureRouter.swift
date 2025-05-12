@@ -29,25 +29,25 @@ public struct CVFeatureRouter: View {
             .onChange(of: route) { newRoute in
                 switch newRoute {
                 case .list:
-                    cvStore.selected = nil
+                    cvStore.currentResume = nil
                     showingAddSheet = false
 
                 case .detail(let cv):
-                    cvStore.selected = cv
+                    cvStore.currentResume = cv
                     showingAddSheet = false
 
                 case .add:
-                    cvStore.selected = nil
+                    cvStore.currentResume = nil
                     showingAddSheet = true
                 }
             }
             .navigationDestination(
                 isPresented:
                     Binding(
-                        get: { cvStore.selected != nil },
+                        get: { cvStore.currentResume != nil },
                         set: { isPresented in
                             if !isPresented {
-                                cvStore.selected = nil
+                                cvStore.currentResume = nil
                             }
                         }
                     )

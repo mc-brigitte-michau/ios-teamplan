@@ -13,23 +13,23 @@ extension CVStore {
         let store = CVStore(service: mockCVService)
         store.candidates = indexCandidates([.mock])
         store.myResume = .mock
-        store.selected = nil
+        store.currentResume = nil
         return store
     }
 
     public static var previewEmpty: CVStore {
         let store = CVStore(service: MockCVService())
         store.candidates = []
-        store.selected = nil
+        store.currentResume = nil
         store.myResume = nil
         return store
     }
 
     public static var previewSelected: CVStore {
-        let store = CVStore(service: mockCVService)
+        let store = CVStore(service: MockCVService())
         store.candidates = indexCandidates([.mock])
         store.myResume = .mock
-        store.selected = .mock
+        store.currentResume = .mock
         return store
     }
 

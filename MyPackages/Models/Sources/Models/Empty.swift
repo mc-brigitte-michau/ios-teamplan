@@ -1,1 +1,3 @@
-public struct Empty: Codable, Sendable {}
+public struct Empty: Codable, Sendable {
+    public init() {}
+}

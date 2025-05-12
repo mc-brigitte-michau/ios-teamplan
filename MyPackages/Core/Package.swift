@@ -13,7 +13,8 @@ let package = Package(
                 "Authentication",
                 "DataStorage",
                 "Utilities",
-                "Logging"
+                "Logging",
+                "Validation"
             ]
         )
     ],
@@ -33,6 +34,10 @@ let package = Package(
         ),
         .target(
             name: "Logging",
+            dependencies: []
+        ),
+        .target(
+            name: "Validation",
             dependencies: []
         ),
         .testTarget(

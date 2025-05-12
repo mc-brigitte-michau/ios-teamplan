@@ -3,7 +3,7 @@ import Models
 /// Update a CV
 public struct UpdateCVRequest: APIRequest {
     public typealias Response = Candidate
-    public typealias Body = Resume
+    public typealias Body = Candidate
 
     public let endpoint = "/cv/{id}"
     public let method = "PUT"
@@ -12,8 +12,8 @@ public struct UpdateCVRequest: APIRequest {
     public let body: Body?
     public let id: String
 
-    public init(id: String, resume: Resume) {
-        self.id = id
+    public init(resume: Candidate) {
+        self.id = resume.id
         self.body = resume
     }
 }

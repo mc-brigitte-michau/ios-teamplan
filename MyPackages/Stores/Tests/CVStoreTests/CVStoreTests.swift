@@ -25,6 +25,23 @@ struct CVStoreTests {
 
     @Test
     @MainActor
+    func testFetchCVsFailure() async {
+        // Given
+        var mockService = MockCVService()
+        mockService.fetchCVsError = .decodingError
+        let store = CVStore(service: mockService)
+
+        // When
+        do {
+            try await store.fetchResumes()
+        } catch {
+            // Then
+            #expect((error as? HTTPClientError) == .decodingError)
+        }
+    }
+
+    @Test
+    @MainActor
     func testFetchResumeWithIdPopulatesCandidate() async throws {
 
         // Given
@@ -36,7 +53,126 @@ struct CVStoreTests {
         try await store.fetchResume(for: "barabar.cave@mooncascade.com")
 
         // Then
-        #expect(store.myResume?.fullName == Candidate.mock.fullName)
-        #expect(store.myResume?.resumes?.count == 1)
+        #expect(store.currentCandidate?.fullName == Candidate.mock.fullName)
+        #expect(store.currentCandidate?.resumes?.count == 1)
     }
+
+    @Test
+    @MainActor
+    func testFetchResumeByIdFailure() async {
+        // Given
+        var mockService = MockCVService()
+        mockService.fetchVCError = .timedOut
+        let store = CVStore(service: mockService)
+
+        // When
+        do {
+            _ = try await store.fetchResume(for: "barabar.cave@mooncascade.com")
+        } catch {
+            // Then
+            #expect((error as? HTTPClientError) == .timedOut)
+        }
+    }
+
+    @Test
+    @MainActor
+    func testCreateResumeSuccess() async throws {
+        // Given
+        var mockService = MockCVService()
+        let createResume: CreateResume = .mock
+        let createdCandidate = Candidate(from: createResume)
+        mockService.createdCandidate = createdCandidate
+        let store = CVStore(service: mockService)
+
+        // When
+        try await store.createResume(resume: createResume)
+
+        // Then
+        #expect(store.currentCandidate?.fullName == createResume.fullName)
+    }
+
+    @Test
+    @MainActor
+    func testCreateResumeFailure() async {
+        // Given
+        var mockService = MockCVService()
+        let clientError: HTTPClientError = .serverError(statusCode: 500, body: "Internal Server Error")
+        mockService.createError = clientError
+        let store = CVStore(service: mockService)
+
+        // When
+        do {
+            try await store.createResume(resume: .mock)
+        } catch {
+            // Then
+            #expect((error as? HTTPClientError) == clientError)
+        }
+    }
+
+    @Test
+    @MainActor
+    func testUpdateResumeSuccess() async throws {
+        // Given
+        var mockService = MockCVService()
+        mockService.updatedCandidate = .mock
+        let store = CVStore(service: mockService)
+
+        // When
+        try await store.updateResume(resume: .mock)
+
+        // Then
+        #expect(store.currentCandidate?.fullName == Candidate.mock.fullName)
+    }
+
+    @Test
+    @MainActor
+    func testUpdateResumeFailure() async {
+        // Given
+        var mockService = MockCVService()
+        mockService.updateError = .invalidResponse
+        let store = CVStore(service: mockService)
+
+        // When
+        do {
+            _ = try await store.updateResume(resume: .mock)
+        } catch {
+            // Then
+            #expect((error as? HTTPClientError) == .invalidResponse)
+        }
+    }
+
+    @Test
+    @MainActor
+    func testDeleteResumeSuccess() async throws {
+        // Given
+        let id = "barabar.cave@mooncascade.com"
+        var mockService = MockCVService()
+        mockService.deleteID = id
+        let store = CVStore(service: mockService)
+        
+        // When
+
+        try await store.deleteResume(for: id)
+
+        // Then
+        #expect(mockService.deleteID == id)
+    }
+
+    @Test
+    @MainActor
+    func testDeleteResumeFailure() async {
+        // Given
+        var mockService = MockCVService()
+        mockService.deleteError = .generalError
+        let store = CVStore(service: mockService)
+
+        // When
+        do {
+            _ = try await store.deleteResume(for: "missing")
+        } catch {
+            // Then
+            #expect((error as? HTTPClientError) == .generalError)
+        }
+    }
+
 }

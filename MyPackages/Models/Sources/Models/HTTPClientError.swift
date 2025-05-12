@@ -1,4 +1,4 @@
-public enum HTTPClientError: Error {
+public enum HTTPClientError: Error, Equatable {
     case invalidResponse
     case serverError(statusCode: Int, body: String)
     case decodingError

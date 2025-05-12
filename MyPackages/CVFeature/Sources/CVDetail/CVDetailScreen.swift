@@ -8,7 +8,7 @@ public struct CVDetailScreen: View {
 
     public var body: some View {
         Text(String(localized: "title", bundle: .module))
-        Text(cvStore.selected?.resumeName ?? "something is wrong")
+        Text(cvStore.currentResume?.resumeName ?? "something is wrong")
     }
 
     public init() {

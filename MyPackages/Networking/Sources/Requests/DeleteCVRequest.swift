@@ -2,6 +2,7 @@ import Models
 
 /// Delete a CV
 public struct DeleteCVRequest: APIRequest {
+
     public typealias Response = Empty
     public typealias Body = Empty
 
