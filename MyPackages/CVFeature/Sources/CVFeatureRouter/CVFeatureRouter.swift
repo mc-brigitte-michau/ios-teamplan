@@ -8,7 +8,7 @@ import Theme
 public struct CVFeatureRouter: View {
 
     @ObservedObject var cvStore: CVStore
-    @ObservedObject var themeManager: ThemeManager
+    let theme: Theme
 
     @State private var route: CVRoute = .list
     @State private var showingAddSheet: Bool = false
@@ -62,14 +62,14 @@ public struct CVFeatureRouter: View {
             }
         }
         .environmentObject(cvStore)
-        .environmentObject(themeManager)
+        .environment(\.theme, theme)
     }
 
     public init(
         cvStore: CVStore,
-        themeManager: ThemeManager
+        theme: Theme
     ) {
         self.cvStore = cvStore
-        self.themeManager = themeManager
+        self.theme = theme
     }
 }

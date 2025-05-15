@@ -1,8 +1,18 @@
 import SwiftUI
+import Presentation
 
 public struct AddCVScreen: View {
+
+    @Environment(\.theme) private var theme
+
     public var body: some View {
-        Text(String(localized: "title", bundle: .module))
+        ZStack {
+            theme.backgroundColor
+                .ignoresSafeArea()
+            VStack {
+                Text(String(localized: "title", bundle: .module))
+            }
+        }
     }
 
     public init() {}

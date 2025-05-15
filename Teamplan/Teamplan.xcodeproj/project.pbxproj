@@ -13,6 +13,16 @@
 		EC9FD3212DC8A0A500296F6C /* CandidatesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = EC9FD3202DC8A0A500296F6C /* CandidatesFeature */; };
 		ECA5E3AF2DCA5011004EB625 /* Presentation in Frameworks */ = {isa = PBXBuildFile; productRef = ECA5E3AE2DCA5011004EB625 /* Presentation */; };
 		ECA69E8A2DCDEB1500681C36 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = ECA69E892DCDEB1500681C36 /* Networking */; };
+		ECA827362DD340F40074E2DA /* ProfileFeature in Frameworks */ = {isa = PBXBuildFile; productRef = ECA8272D2DD340F40074E2DA /* ProfileFeature */; };
+		ECA827372DD340F40074E2DA /* LoginFeature in Frameworks */ = {isa = PBXBuildFile; productRef = ECA8272C2DD340F40074E2DA /* LoginFeature */; };
+		ECA827382DD340F40074E2DA /* CVStore in Frameworks */ = {isa = PBXBuildFile; productRef = ECA827312DD340F40074E2DA /* CVStore */; };
+		ECA827392DD340F40074E2DA /* CandidatesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = ECA8272E2DD340F40074E2DA /* CandidatesFeature */; };
+		ECA8273A2DD340F40074E2DA /* UserStore in Frameworks */ = {isa = PBXBuildFile; productRef = ECA827322DD340F40074E2DA /* UserStore */; };
+		ECA8273B2DD340F40074E2DA /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = ECA8272A2DD340F40074E2DA /* Core */; };
+		ECA8273C2DD340F40074E2DA /* CVFeature in Frameworks */ = {isa = PBXBuildFile; productRef = ECA8272B2DD340F40074E2DA /* CVFeature */; };
+		ECA8273D2DD340F40074E2DA /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = ECA827302DD340F40074E2DA /* Models */; };
+		ECA8273E2DD340F40074E2DA /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = ECA827332DD340F40074E2DA /* Networking */; };
+		ECA8273F2DD340F40074E2DA /* Presentation in Frameworks */ = {isa = PBXBuildFile; productRef = ECA8272F2DD340F40074E2DA /* Presentation */; };
 		ECC62FEE2DC4E7B5002B49C9 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = ECC62FED2DC4E7B5002B49C9 /* Core */; };
 		ECC62FF02DC4E7BD002B49C9 /* CVFeature in Frameworks */ = {isa = PBXBuildFile; productRef = ECC62FEF2DC4E7BD002B49C9 /* CVFeature */; };
 		ECC62FF22DC4E7C1002B49C9 /* LoginFeature in Frameworks */ = {isa = PBXBuildFile; productRef = ECC62FF12DC4E7C1002B49C9 /* LoginFeature */; };
@@ -39,6 +49,7 @@
 		EC18AF072DCE155E00B50832 /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Presentation; path = ../MyPackages/Presentation; sourceTree = SOURCE_ROOT; };
 		EC18AF082DCE155E00B50832 /* ProfileFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ProfileFeature; path = ../MyPackages/ProfileFeature; sourceTree = SOURCE_ROOT; };
 		EC18AF092DCE155E00B50832 /* Stores */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Stores; path = ../MyPackages/Stores; sourceTree = SOURCE_ROOT; };
+		ECA827442DD340F40074E2DA /* WhiteLabelExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhiteLabelExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECAE95FD2DC4C28200C44575 /* Teamplan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teamplan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECAE960D2DC4C28300C44575 /* TeamplanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TeamplanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -51,9 +62,25 @@
 			);
 			target = ECAE95FC2DC4C28200C44575 /* Teamplan */;
 		};
+		ECA827602DD356B20074E2DA /* Exceptions for "WhitelabelExample" folder in "WhiteLabelExample" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				"Preview Content/Preview Assets.xcassets",
+			);
+			target = ECA827292DD340F40074E2DA /* WhiteLabelExample */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		ECA827552DD356B20074E2DA /* WhitelabelExample */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				ECA827602DD356B20074E2DA /* Exceptions for "WhitelabelExample" folder in "WhiteLabelExample" target */,
+			);
+			path = WhitelabelExample;
+			sourceTree = "<group>";
+		};
 		ECAE95FF2DC4C28200C44575 /* Teamplan */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -70,6 +97,23 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		ECA827352DD340F40074E2DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECA827362DD340F40074E2DA /* ProfileFeature in Frameworks */,
+				ECA827372DD340F40074E2DA /* LoginFeature in Frameworks */,
+				ECA827382DD340F40074E2DA /* CVStore in Frameworks */,
+				ECA827392DD340F40074E2DA /* CandidatesFeature in Frameworks */,
+				ECA8273A2DD340F40074E2DA /* UserStore in Frameworks */,
+				ECA8273B2DD340F40074E2DA /* Core in Frameworks */,
+				ECA8273C2DD340F40074E2DA /* CVFeature in Frameworks */,
+				ECA8273D2DD340F40074E2DA /* Models in Frameworks */,
+				ECA8273E2DD340F40074E2DA /* Networking in Frameworks */,
+				ECA8273F2DD340F40074E2DA /* Presentation in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ECAE95FA2DC4C28200C44575 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -111,6 +155,7 @@
 				EC18AF052DCE155E00B50832 /* Models */,
 				ECAE95FF2DC4C28200C44575 /* Teamplan */,
 				ECAE96102DC4C28300C44575 /* TeamplanTests */,
+				ECA827552DD356B20074E2DA /* WhitelabelExample */,
 				ECC62FEA2DC4E7A6002B49C9 /* Frameworks */,
 				ECAE95FE2DC4C28200C44575 /* Products */,
 			);
@@ -121,6 +166,7 @@
 			children = (
 				ECAE95FD2DC4C28200C44575 /* Teamplan.app */,
 				ECAE960D2DC4C28300C44575 /* TeamplanTests.xctest */,
+				ECA827442DD340F40074E2DA /* WhiteLabelExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,6 +181,38 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		ECA827292DD340F40074E2DA /* WhiteLabelExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECA827412DD340F40074E2DA /* Build configuration list for PBXNativeTarget "WhiteLabelExample" */;
+			buildPhases = (
+				ECA827342DD340F40074E2DA /* Sources */,
+				ECA827352DD340F40074E2DA /* Frameworks */,
+				ECA827402DD340F40074E2DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				ECA827552DD356B20074E2DA /* WhitelabelExample */,
+			);
+			name = WhiteLabelExample;
+			packageProductDependencies = (
+				ECA8272A2DD340F40074E2DA /* Core */,
+				ECA8272B2DD340F40074E2DA /* CVFeature */,
+				ECA8272C2DD340F40074E2DA /* LoginFeature */,
+				ECA8272D2DD340F40074E2DA /* ProfileFeature */,
+				ECA8272E2DD340F40074E2DA /* CandidatesFeature */,
+				ECA8272F2DD340F40074E2DA /* Presentation */,
+				ECA827302DD340F40074E2DA /* Models */,
+				ECA827312DD340F40074E2DA /* CVStore */,
+				ECA827322DD340F40074E2DA /* UserStore */,
+				ECA827332DD340F40074E2DA /* Networking */,
+			);
+			productName = Teamplan;
+			productReference = ECA827442DD340F40074E2DA /* WhiteLabelExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 		ECAE95FC2DC4C28200C44575 /* Teamplan */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ECAE96212DC4C28300C44575 /* Build configuration list for PBXNativeTarget "Teamplan" */;
@@ -225,11 +303,19 @@
 			targets = (
 				ECAE95FC2DC4C28200C44575 /* Teamplan */,
 				ECAE960C2DC4C28300C44575 /* TeamplanTests */,
+				ECA827292DD340F40074E2DA /* WhiteLabelExample */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		ECA827402DD340F40074E2DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ECAE95FB2DC4C28200C44575 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -247,6 +333,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		ECA827342DD340F40074E2DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ECAE95F92DC4C28200C44575 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -272,6 +365,80 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		ECA827422DD340F40074E2DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = ECAE95FF2DC4C28200C44575 /* Teamplan */;
+			baseConfigurationReferenceRelativePath = Configuration/Debug.xcconfig;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Teamplan/Preview Content\"";
+				DEVELOPMENT_TEAM = W3CJ6X343D;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WhiteLabelExample/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mooncascade.whiteLabelTeamPlan;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ECA827432DD340F40074E2DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = ECAE95FF2DC4C28200C44575 /* Teamplan */;
+			baseConfigurationReferenceRelativePath = Configuration/Release.xcconfig;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Teamplan/Preview Content\"";
+				DEVELOPMENT_TEAM = W3CJ6X343D;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WhiteLabelExample/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mooncascade.whiteLabelTeamPlan;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		ECAE961F2DC4C28300C44575 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = ECAE95FF2DC4C28200C44575 /* Teamplan */;
@@ -404,6 +571,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Teamplan/Preview Content\"";
@@ -423,8 +591,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mooncascade.teamplan;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mooncascade.Teamplan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -441,6 +610,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Teamplan/Preview Content\"";
@@ -460,8 +630,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mooncascade.teamplan;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mooncascade.Teamplan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -512,6 +683,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		ECA827412DD340F40074E2DA /* Build configuration list for PBXNativeTarget "WhiteLabelExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECA827422DD340F40074E2DA /* Debug */,
+				ECA827432DD340F40074E2DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		ECAE95F82DC4C28200C44575 /* Build configuration list for PBXProject "Teamplan" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -563,6 +743,46 @@
 			productName = Presentation;
 		};
 		ECA69E892DCDEB1500681C36 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Networking;
+		};
+		ECA8272A2DD340F40074E2DA /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Core;
+		};
+		ECA8272B2DD340F40074E2DA /* CVFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CVFeature;
+		};
+		ECA8272C2DD340F40074E2DA /* LoginFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LoginFeature;
+		};
+		ECA8272D2DD340F40074E2DA /* ProfileFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ProfileFeature;
+		};
+		ECA8272E2DD340F40074E2DA /* CandidatesFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CandidatesFeature;
+		};
+		ECA8272F2DD340F40074E2DA /* Presentation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Presentation;
+		};
+		ECA827302DD340F40074E2DA /* Models */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Models;
+		};
+		ECA827312DD340F40074E2DA /* CVStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CVStore;
+		};
+		ECA827322DD340F40074E2DA /* UserStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserStore;
+		};
+		ECA827332DD340F40074E2DA /* Networking */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Networking;
 		};

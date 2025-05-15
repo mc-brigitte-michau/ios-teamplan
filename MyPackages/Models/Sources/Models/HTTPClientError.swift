@@ -4,6 +4,7 @@ public enum HTTPClientError: Error, Equatable {
     case decodingError
     case timedOut
     case generalError
+    case authorizationFailed
 }
 
 extension HTTPClientError {
@@ -20,6 +21,8 @@ extension HTTPClientError {
             return "Request timed out. Try again"
         case .generalError:
             return "Please try again later"
+        case .authorizationFailed:
+            return "Login failed or cancelled."
         }
 
     }

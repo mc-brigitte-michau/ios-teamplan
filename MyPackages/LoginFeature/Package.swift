@@ -10,17 +10,37 @@ let package = Package(
         .library(
             name: "LoginFeature",
             targets: [
-                "Login"
+                "Login",
+                "LoginFeatureRouter"
             ]
         )
     ],
-    dependencies: [],
+    dependencies: [
+        .package(path: "../Stores"),
+        .package(path: "../Models"),
+        .package(path: "../Presentation")
+    ],
     targets: [
         .target(
+            name: "LoginFeatureRouter",
+            dependencies: [
+                "Login",
+                .product(name: "UserStore", package: "Stores"),
+                .product(name: "Models", package: "Models"),
+                .product(name: "Presentation", package: "Presentation")
+            ]
+        ),
+        .target(
             name: "Login",
-            dependencies: [],
+            dependencies: [
+                .product(name: "UserStore", package: "Stores"),
+                .product(name: "Models", package: "Models"),
+                .product(name: "Presentation", package: "Presentation")
+
+            ],
             resources: [.process("Localizable.xcstrings")]
         ),
+
         .testTarget(
             name: "LoginTests",
             dependencies: ["Login"]

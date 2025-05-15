@@ -28,6 +28,13 @@ extension HTTPClientImpl {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method
 
+        if let url = urlRequest.url,
+           let cookies = HTTPCookieStorage.shared.cookies(for: url) {
+            for cookie in cookies {
+                AppLogger.network.debug("Sending cookie:  \(cookie.name)=\(cookie.value)")
+            }
+        }
+
         urlRequest.setValue("*/*", forHTTPHeaderField: "Accept")
 
         // FIXME:  **VERY IMPORTANT**: send If-None-Match with the latest ETag

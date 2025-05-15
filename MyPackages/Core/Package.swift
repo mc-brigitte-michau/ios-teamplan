@@ -10,7 +10,6 @@ let package = Package(
         .library(
             name: "Core",
             targets: [
-                "Authentication",
                 "DataStorage",
                 "Utilities",
                 "Logging",
@@ -20,10 +19,6 @@ let package = Package(
     ],
     dependencies: [],
     targets: [
-        .target(
-            name: "Authentication",
-            dependencies: []
-        ),
         .target(
             name: "DataStorage",
             dependencies: []
@@ -39,10 +34,6 @@ let package = Package(
         .target(
             name: "Validation",
             dependencies: []
-        ),
-        .testTarget(
-            name: "AuthenticationTests",
-            dependencies: ["Authentication"]
         ),
         .testTarget(
             name: "DataStorageTests",

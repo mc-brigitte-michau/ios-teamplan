@@ -6,15 +6,22 @@ import Models
 public struct CandidatesScreen: View {
 
     @EnvironmentObject private var store: CVStore
+    @Environment(\.theme) private var theme
     @State private var loadState: LoadState
     @State private var searchText = ""
 
     public var body: some View {
         NavigationStack {
-            VStack {
-                contentView
+            ZStack {
+                theme.backgroundColor
+                    .ignoresSafeArea()
+                VStack {
+                    contentView
+                }
             }
             .navigationTitle(String(localized: "title", bundle: .module))
+            .toolbarBackground(theme.backgroundColor, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .onAppear {
                 if loadState == .idle {
                     Task {
@@ -45,7 +52,11 @@ public struct CandidatesScreen: View {
     private var candidatesList: some View {
         List(filteredCandidates) { candidate in
             Text(candidate.fullName)
+                .listRowBackground(theme.backgroundColor) 
         }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .background(theme.backgroundColor)
         .searchable(text: $searchText)
     }
 
@@ -82,6 +93,7 @@ private extension CandidatesScreen {
 }
 
 struct CandidatesScreen_Previews: PreviewProvider {
+
     static var previews: some View {
         Group {
             CandidatesScreen(loadState: .loaded)

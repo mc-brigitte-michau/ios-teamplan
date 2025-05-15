@@ -21,6 +21,5 @@ final class AppEnvironment {
             domain: Bundle.main.authDomain,
             clientId: Bundle.main.authClientId,
             redirectUri: Bundle.main.authRedirect
-        )
-    }
+        )    }
 }

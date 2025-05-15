@@ -6,19 +6,19 @@ import Candidates
 public struct CandidatesFeatureRouter: View {
 
     @ObservedObject var cvStore: CVStore
-    @ObservedObject var themeManager: ThemeManager
+    let theme: Theme
 
     public var body: some View {
         CandidatesScreen()
             .environmentObject(cvStore)
-            .environmentObject(themeManager)
+            .environment(\.theme, theme)
     }
 
     public init(
         cvStore: CVStore,
-        themeManager: ThemeManager
+        theme: Theme
     ) {
         self.cvStore = cvStore
-        self.themeManager = themeManager
+        self.theme = theme
     }
 }

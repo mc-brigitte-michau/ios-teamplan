@@ -7,15 +7,22 @@ import Models
 public struct CVListScreen: View {
     
     @EnvironmentObject private var cvStore: CVStore
+    @Environment(\.theme) private var theme
     @State private var loadState: LoadState
     public var onEvent: (CVListEvent) -> Void
     
     public var body: some View {
         NavigationStack {
-            VStack {
-                contentView
+            ZStack {
+                theme.backgroundColor
+                    .ignoresSafeArea()
+                VStack {
+                    contentView
+                }
             }
             .navigationTitle(String(localized: "title", bundle: .module))
+            .toolbarBackground(theme.backgroundColor, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -42,30 +49,38 @@ public struct CVListScreen: View {
             LoadingView(text: "Loading CVs...")
 
         case .loaded:
-            VStack(alignment: .leading, spacing: 8) {
-                Text(cvStore.myResume?.fullName ?? "No Name")
-                Text(cvStore.myResume?.id ?? "No email")
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 16)
-
-            List(cvStore.myResume?.resumes ?? [], id: \.id) { resume in
-                HStack {
-                    Text(resume.resumeName)
-                    Spacer()
+            VStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(cvStore.myResume?.fullName ?? "No Name")
+                    Text(cvStore.myResume?.id ?? "No email")
                 }
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    onEvent(.select(resume))
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(theme.backgroundColor)
+
+                List(cvStore.myResume?.resumes ?? [], id: \.id) { resume in
+                    HStack {
+                        Text(resume.resumeName)
+                        Spacer()
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        onEvent(.select(resume))
+                    }
+                    .listRowBackground(theme.backgroundColor)
                 }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
             }
+            .background(theme.backgroundColor)
 
-        case .empty:
-            Text("No resume found. Please add one.")
+            case .empty:
+                Text("No resume found. Please add one.")
 
-        case .failed(let error):
-            Text("Failed to load resume: \(error)")
-        }
+            case .failed(let error):
+                Text("Failed to load resume: \(error)")
+            }
     }
 
     public init(

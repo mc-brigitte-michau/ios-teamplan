@@ -5,11 +5,12 @@ import CandidatesFeatureRouter
 import CVStore
 import CVFeatureRouter
 import CVList
+import Services
 
 struct AppRouter: View {
     @ObservedObject var cvStore: CVStore
-    let theme: Theme
 
+    let theme: Theme
 
     var body: some View {
         TabView {
@@ -30,13 +31,11 @@ struct AppRouter: View {
         }
         .background(theme.backgroundColor)
         .environment(\.theme, theme)
-
     }
 }
 
 struct AppRouter_Previews: PreviewProvider {
     static var previews: some View {
-
         let theme = DefaultTheme()
         let cvStore = CVStore.preview
 

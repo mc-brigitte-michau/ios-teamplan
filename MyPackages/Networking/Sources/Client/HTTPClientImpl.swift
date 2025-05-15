@@ -7,9 +7,12 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
     private let session: URLSession
     let baseURL: String
 
-    public init(baseURL: String, session: URLSession = .shared) {
+    public init(baseURL: String) {
         self.baseURL = baseURL
-        self.session = session
+        let config = URLSessionConfiguration.default
+        config.httpCookieAcceptPolicy = .always
+        config.httpShouldSetCookies = true
+        session = URLSession(configuration: config)
     }
 
     public func send<T: APIRequest>(request: T) async throws -> T.Response where T.Response: Sendable  {
@@ -25,6 +28,9 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
         }
 
         try validateResponse(data, response: response)
+
+        handleCookies(response: response)
+
 #if DEBUG
         let log = logNetwork(request.method, endpoint: request.endpoint, data: data)
         AppLogger.network.debug("\(log)")
@@ -37,7 +43,7 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
     }
 
     private func fetchData(with request: URLRequest) async throws -> (Data, URLResponse) {
-        try await withTimeout(seconds: 10) { [weak self] in
+        try await withTimeout(seconds: 20) { [weak self] in
             guard let self else {
                 throw HTTPClientError.generalError
             }
@@ -87,6 +93,18 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
             AppLogger.network.error("Status Code: \(httpResponse.statusCode)")
             let responseText = data.flatMap { String(data: $0, encoding: .utf8) } ?? "No response body"
             throw HTTPClientError.serverError(statusCode: httpResponse.statusCode, body: responseText)
+        }
+    }
+
+    private func handleCookies(response: URLResponse) {
+        if let httpResponse = response as? HTTPURLResponse,
+           let url = httpResponse.url {
+            let headers = httpResponse.allHeaderFields as? [String: String]
+            let cookies = HTTPCookie.cookies(withResponseHeaderFields: headers ?? [:], for: url)
+            for cookie in cookies {
+                HTTPCookieStorage.shared.setCookie(cookie)
+                AppLogger.network.debug("Captured cookie: \(cookie.name)=\(cookie.value)")
+            }
         }
     }
 }
