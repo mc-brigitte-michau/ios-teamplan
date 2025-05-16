@@ -1,0 +1,17 @@
+version: 1.0
+identifier: auto-build-increment
+actions:
+  - name: Set Build Number
+    script: |
+      echo "Setting build number to ${CI_BUILD_NUMBER}"
+      /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${CI_BUILD_NUMBER}" "${CI_PRIMARY_REPOSITORY_PATH}/Teamplan/Info.plist"
+    runIf: always
+
+builds:
+  - scheme: Teamplan
+    configuration: Release
+    destination:
+      platform: iOS
+    actions:
+      - auto-build-increment
+
