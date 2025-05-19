@@ -10,6 +10,14 @@
 	<string>$(AUTH_DOMAIN)</string>
 	<key>AUTH_REDIRECT</key>
 	<string>teamplan://auth</string>
+    <key>CFBundleIcons</key>
+    <dict>
+        <key>CFBundlePrimaryIcon</key>
+        <dict>
+            <key>CFBundleIconName</key>
+            <string>AppIcon</string>
+        </dict>
+    </dict>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
