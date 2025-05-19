@@ -1,5 +1,6 @@
 import Services
 import Models
+import SharedStore
 
 extension CVStore {
 
@@ -11,6 +12,7 @@ extension CVStore {
 
     public static var preview: CVStore {
         let store = CVStore(service: mockCVService)
+        store.listLoadState = .loaded
         store.candidates = indexCandidates([.mock])
         store.myResume = .mock
         store.currentResume = nil
@@ -19,9 +21,16 @@ extension CVStore {
 
     public static var previewEmpty: CVStore {
         let store = CVStore(service: MockCVService())
+        store.listLoadState = .empty
         store.candidates = []
         store.currentResume = nil
         store.myResume = nil
+        return store
+    }
+
+    public static var previewFailure: CVStore {
+        let store = CVStore(service: MockCVService())
+        store.listLoadState = .failed("Failed to load candidates")
         return store
     }
 
@@ -32,5 +41,7 @@ extension CVStore {
         store.currentResume = .mock
         return store
     }
+
+
 
 }

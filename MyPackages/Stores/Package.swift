@@ -14,6 +14,10 @@ let package = Package(
         .library(
             name: "UserStore",
             targets: ["UserStore"]
+        ),
+        .library(
+            name: "SharedStore",
+            targets: ["SharedStore"]
         )
     ],
     dependencies: [
@@ -24,6 +28,7 @@ let package = Package(
         .target(
             name: "CVStore",
             dependencies: [
+                "SharedStore",
                 .product(name: "Networking", package: "Networking"),
                 .product(name: "Models", package: "Models")
             ]
@@ -31,13 +36,18 @@ let package = Package(
         .target(
             name: "UserStore",
             dependencies: [
+                "SharedStore",
                 .product(name: "Networking", package: "Networking"),
                 .product(name: "Models", package: "Models")
             ]
         ),
+        .target(
+            name: "SharedStore",
+            dependencies: []
+        ),
         .testTarget(
             name: "CVStoreTests",
-            dependencies: ["CVStore"]
+            dependencies: ["CVStore", "SharedStore"]
         )
     ]
 )

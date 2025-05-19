@@ -8,7 +8,6 @@ public struct CVListScreen: View {
     
     @EnvironmentObject private var cvStore: CVStore
     @Environment(\.theme) private var theme
-    @State private var loadState: LoadState
     public var onEvent: (CVListEvent) -> Void
     
     public var body: some View {
@@ -33,9 +32,9 @@ public struct CVListScreen: View {
                 }
             }
             .onAppear {
-                if loadState == .idle {
+                if cvStore.listLoadState == .idle {
                     Task {
-                        await loadCVs()
+                        try await cvStore.fetchResumes()
                     }
                 }
             }
@@ -44,7 +43,7 @@ public struct CVListScreen: View {
 
     @ViewBuilder
     private var contentView: some View {
-        switch loadState {
+        switch cvStore.listLoadState {
         case .idle, .loading:
             LoadingView(text: "Loading CVs...")
 
@@ -84,31 +83,9 @@ public struct CVListScreen: View {
     }
 
     public init(
-        loadState: LoadState = .idle,
         onEvent: @escaping (CVListEvent) -> Void
     ) {
-        self.loadState = loadState
         self.onEvent = onEvent
-    }
-}
-
-private extension CVListScreen {
-    func loadCVs() async {
-        loadState = .loading
-        do {
-            try await cvStore.fetchResumes()
-            if cvStore.candidates.isEmpty {
-                loadState = .empty
-            } else {
-                loadState = .loaded
-            }
-        } catch {
-            if let clientError = error as? HTTPClientError {
-                loadState = .failed(clientError.displayMessage)
-            } else {
-                loadState = .failed(error.localizedDescription)
-            }
-        }
     }
 }
 
@@ -116,24 +93,21 @@ struct CandidatesScreen_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             CVListScreen(
-                loadState: .loaded,
                 onEvent: { _ in }
             )
             .environmentObject(CVStore.preview)
             .previewDisplayName("Loaded with candidates")
 
             CVListScreen(
-                loadState: .empty,
                 onEvent: { _ in }
             )
             .environmentObject(CVStore.previewEmpty)
             .previewDisplayName("Empty state")
 
             CVListScreen(
-                loadState: .failed("Network error"),
                 onEvent: { _ in }
             )
-            .environmentObject(CVStore.previewEmpty)
+            .environmentObject(CVStore.previewFailure)
             .previewDisplayName("Failed state")
         }
     }

@@ -17,19 +17,27 @@
   },
   "testTargets" : [
     {
+      "target" : {
+        "containerPath" : "container:..\/MyPackages\/Stores",
+        "identifier" : "CVStoreTests",
+        "name" : "CVStoreTests"
+      }
+    },
+    {
+      "enabled" : false,
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "CVListTests",
+        "name" : "CVListTests"
+      }
+    },
+    {
       "enabled" : false,
       "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Teamplan.xcodeproj",
         "identifier" : "ECAE960C2DC4C28300C44575",
         "name" : "TeamplanTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/MyPackages\/Stores",
-        "identifier" : "CVStoreTests",
-        "name" : "CVStoreTests"
       }
     }
   ],

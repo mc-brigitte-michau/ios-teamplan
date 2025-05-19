@@ -1,7 +1,7 @@
 import CVStore
 import Models
 
-public enum CVListEvent {
+public enum CVListEvent: Equatable {
     case select(Resume)
     case add
 }
