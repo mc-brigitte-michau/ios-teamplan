@@ -25,14 +25,6 @@
     },
     {
       "enabled" : false,
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "CVListTests",
-        "name" : "CVListTests"
-      }
-    },
-    {
-      "enabled" : false,
       "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Teamplan.xcodeproj",
