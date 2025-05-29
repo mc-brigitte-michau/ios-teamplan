@@ -15,3 +15,8 @@ builds:
     actions:
       - auto-build-increment
 
+tests:
+  - scheme: Teamplan
+    testPlan: Teamplan
+    destination:
+      platform: iOS
