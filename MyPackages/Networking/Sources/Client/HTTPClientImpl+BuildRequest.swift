@@ -31,7 +31,7 @@ extension HTTPClientImpl {
         if let url = urlRequest.url,
            let cookies = HTTPCookieStorage.shared.cookies(for: url) {
             for cookie in cookies {
-                AppLogger.network.debug("Sending cookie:  \(cookie.name)=\(cookie.value)")
+                AppLogger.network.debug("Sending cookie: \(cookie.name)=\(cookie.value)")
             }
         }
 

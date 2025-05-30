@@ -2,13 +2,19 @@ import Foundation
 import Models
 import Requests
 import Logging
+import DataStorage
 
 public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
     private let session: URLSession
+    private let keychainStorage: KeychainStorage
     let baseURL: String
 
-    public init(baseURL: String) {
+    public init(
+        baseURL: String,
+        keychainStorage: KeychainStorageBox
+    ) {
         self.baseURL = baseURL
+        self.keychainStorage = keychainStorage.base
         let config = URLSessionConfiguration.default
         config.httpCookieAcceptPolicy = .always
         config.httpShouldSetCookies = true
@@ -104,7 +110,16 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
             for cookie in cookies {
                 HTTPCookieStorage.shared.setCookie(cookie)
                 AppLogger.network.debug("Captured cookie: \(cookie.name)=\(cookie.value)")
+                if cookie.isSessionCookie {
+                    keychainStorage.storeCookieToKeychain(cookie)
+                }
             }
         }
+    }
+}
+
+private extension HTTPCookie {
+    var isSessionCookie: Bool {
+        [KeychainKey.authToken.rawValue].contains(name)
     }
 }

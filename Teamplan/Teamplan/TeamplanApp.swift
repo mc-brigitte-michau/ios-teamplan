@@ -15,7 +15,10 @@ struct TeamplanApp: App {
         let env = AppEnvironment()
         let cvStore = CVStore(service: env.cvService)
         _cvStore = StateObject(wrappedValue: cvStore)
-        let userStore = UserStore(service: env.authService)
+        let userStore = UserStore(
+            service: env.authService,
+            keychainStorage: env.keychainStorage
+        )
         _userStore = StateObject(wrappedValue: userStore)
         theme = env.theme
     }
@@ -26,7 +29,9 @@ struct TeamplanApp: App {
                 cvStore: cvStore,
                 userStore: userStore,
                 theme: theme
-            )
+            ).task {
+                await userStore.restoreSession()
+            }
         }
     }
 }
