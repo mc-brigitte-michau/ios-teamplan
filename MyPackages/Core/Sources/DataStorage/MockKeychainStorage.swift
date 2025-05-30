@@ -1,8 +1,8 @@
 import Foundation
 
 public final class MockKeychainStorage: KeychainStorage {
-    private var cookieStorage: [String: HTTPCookie] = [:]
-    private var genericStorage: [String: Data] = [:]
+    public var cookieStorage: [String: HTTPCookie] = [:]
+    public var genericStorage: [String: Data] = [:]
 
     public init() {}
 

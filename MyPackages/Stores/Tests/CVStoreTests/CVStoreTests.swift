@@ -8,7 +8,7 @@ struct CVStoreTests {
 
     @Test
     @MainActor
-    func testFetchResumesPopulatesCandidates() async throws {
+    func fetchResumesPopulatesCandidates() async throws {
         // Given
         var mockService = MockCVService()
         mockService.candidatesToReturn = [ .mock ]
@@ -25,7 +25,7 @@ struct CVStoreTests {
 
     @Test
     @MainActor
-    func testFetchCVsFailure() async {
+    func fetchCVsFailure() async {
         // Given
         var mockService = MockCVService()
         mockService.fetchCVsError = .decodingError
@@ -42,7 +42,7 @@ struct CVStoreTests {
 
     @Test
     @MainActor
-    func testFetchResumeWithIdPopulatesCandidate() async throws {
+    func fetchResumeWithIdPopulatesCandidate() async throws {
 
         // Given
         var mockService = MockCVService()
@@ -59,7 +59,7 @@ struct CVStoreTests {
 
     @Test
     @MainActor
-    func testFetchResumeByIdFailure() async {
+    func fetchResumeByIdFailure() async {
         // Given
         var mockService = MockCVService()
         mockService.fetchVCError = .timedOut
@@ -76,7 +76,7 @@ struct CVStoreTests {
 
     @Test
     @MainActor
-    func testCreateResumeSuccess() async throws {
+    func createResumeSuccess() async throws {
         // Given
         var mockService = MockCVService()
         let createResume: CreateResume = .mock
@@ -93,7 +93,7 @@ struct CVStoreTests {
 
     @Test
     @MainActor
-    func testCreateResumeFailure() async {
+    func createResumeFailure() async {
         // Given
         var mockService = MockCVService()
         let clientError: HTTPClientError = .serverError(statusCode: 500, body: "Internal Server Error")
@@ -111,7 +111,7 @@ struct CVStoreTests {
 
     @Test
     @MainActor
-    func testUpdateResumeSuccess() async throws {
+    func updateResumeSuccess() async throws {
         // Given
         var mockService = MockCVService()
         mockService.updatedCandidate = .mock
@@ -126,7 +126,7 @@ struct CVStoreTests {
 
     @Test
     @MainActor
-    func testUpdateResumeFailure() async {
+    func updateResumeFailure() async {
         // Given
         var mockService = MockCVService()
         mockService.updateError = .invalidResponse
@@ -143,7 +143,7 @@ struct CVStoreTests {
 
     @Test
     @MainActor
-    func testDeleteResumeSuccess() async throws {
+    func deleteResumeSuccess() async throws {
         // Given
         let id = "barabar.cave@mooncascade.com"
         var mockService = MockCVService()
@@ -160,7 +160,7 @@ struct CVStoreTests {
 
     @Test
     @MainActor
-    func testDeleteResumeFailure() async {
+    func deleteResumeFailure() async {
         // Given
         var mockService = MockCVService()
         mockService.deleteError = .generalError

@@ -22,6 +22,20 @@
         "identifier" : "CVStoreTests",
         "name" : "CVStoreTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/MyPackages\/Stores",
+        "identifier" : "UserStoreTests",
+        "name" : "UserStoreTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/MyPackages\/Core",
+        "identifier" : "DataStorageTests",
+        "name" : "DataStorageTests"
+      }
     }
   ],
   "version" : 1

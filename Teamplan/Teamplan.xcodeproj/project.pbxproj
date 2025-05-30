@@ -70,6 +70,13 @@
 			);
 			target = ECA827292DD340F40074E2DA /* WhiteLabelExample */;
 		};
+		ECCC9E032DE9EE0A009F8142 /* Exceptions for "TeamplanTests" folder in "TeamplanTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			platformFiltersByRelativePath = {
+				TeamplanTests.swift = (ios, );
+			};
+			target = ECAE960C2DC4C28300C44575 /* TeamplanTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -91,6 +98,9 @@
 		};
 		ECAE96102DC4C28300C44575 /* TeamplanTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				ECCC9E032DE9EE0A009F8142 /* Exceptions for "TeamplanTests" folder in "TeamplanTests" target */,
+			);
 			path = TeamplanTests;
 			sourceTree = "<group>";
 		};
