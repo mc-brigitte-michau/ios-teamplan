@@ -23,7 +23,7 @@ let package = Package(
     dependencies: [
         .package(path: "../Models"),
         .package(path: "../Networking"),
-        .package(path: "../DataStorage")
+        .package(path: "../Core")
     ],
     targets: [
         .target(
@@ -40,7 +40,7 @@ let package = Package(
                 "SharedStore",
                 .product(name: "Networking", package: "Networking"),
                 .product(name: "Models", package: "Models"),
-                .product(name: "DataStorage", package: "DataStorage")
+                .product(name: "Core", package: "Core")
             ]
         ),
         .target(
@@ -53,7 +53,7 @@ let package = Package(
         ),
         .testTarget(
             name: "UserStoreTests",
-            dependencies: ["UserStore", "SharedStore", "DataStorage"]
+            dependencies: ["UserStore", "SharedStore", "Core"]
         )
     ]
 )
