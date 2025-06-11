@@ -8,7 +8,7 @@ openai_model = os.environ.get("OPENAI_MODEL", "gpt-4")
 repo = os.environ["GITHUB_REPOSITORY"]
 pr_number = os.environ["PR_NUMBER"]
 
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+client = OpenAI()
 
 headers = {
     "Authorization": f"token {github_token}",
