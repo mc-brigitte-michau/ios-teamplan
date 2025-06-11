@@ -8,6 +8,10 @@ openai_model = os.environ.get("OPENAI_MODEL", "gpt-4")
 repo = os.environ["GITHUB_REPOSITORY"]
 pr_number = os.environ["PR_NUMBER"]
 
+# Remove proxies if present (fixes httpx client injection bug)
+os.environ.pop("HTTP_PROXY", None)
+os.environ.pop("HTTPS_PROXY", None)
+
 client = OpenAI()
 
 headers = {

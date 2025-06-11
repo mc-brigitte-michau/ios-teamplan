@@ -16,32 +16,31 @@ jobs:
     timeout-minutes: 10
 
     steps:
-
-      - name: 🧼 Uninstall OpenAI (clean slate)
-        run: pip uninstall -y openai
-
-      - name: Checkout repository code
+      - name: 🧾 Checkout repository code
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: 🐍 Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Validate script existence
+      - name: 🧼 Uninstall OpenAI (clean slate)
+        run: pip uninstall -y openai || true
+
+      - name: 📂 Validate script existence
         run: |
           if [ ! -f Scripts/ai-code-reviewer.py ]; then
             echo "🚫 Error: ai-code-reviewer.py not found!"
             exit 1
           fi
 
-      - name: Install Python dependencies
+      - name: 📦 Install Python dependencies
         run: pip install openai==1.13.3 requests==2.31.0
 
       - name: 🔍 Verify OpenAI version
         run: pip show openai
 
-      - name: Run comprehensive AI code reviewer
+      - name: 🧠 Run AI code reviewer
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
