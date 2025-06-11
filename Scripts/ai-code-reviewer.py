@@ -1,13 +1,14 @@
 import os
 import requests
-import openai
+from openai import OpenAI
 
 # Environment Variables
 github_token = os.environ["GITHUB_TOKEN"]
-openai.api_key = os.environ["OPENAI_API_KEY"]
 openai_model = os.environ.get("OPENAI_MODEL", "gpt-4")
 repo = os.environ["GITHUB_REPOSITORY"]
 pr_number = os.environ["PR_NUMBER"]
+
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 headers = {
     "Authorization": f"token {github_token}",
@@ -45,15 +46,6 @@ def build_openai_prompt(file_diffs):
     ]
 
 def parse_openai_response(text):
-    """
-    Expected response format from OpenAI:
-    Summary:
-    - ...
-    
-    Inline:
-    filename.swift:42: Consider using StateObject instead of ObservableObject
-    filename.swift:10: Unused import found.
-    """
     lines = text.splitlines()
     summary_lines = []
     comments = []
@@ -68,13 +60,16 @@ def parse_openai_response(text):
         elif ":" in line:
             parts = line.split(":", 2)
             if len(parts) == 3:
-                filename, lineno, comment = parts
-                comments.append({
-                    "path": filename.strip(),
-                    "line": int(lineno.strip()),
-                    "body": comment.strip(),
-                    "side": "RIGHT"
-                })
+                try:
+                    filename, lineno, comment = parts
+                    comments.append({
+                        "path": filename.strip(),
+                        "line": int(lineno.strip()),
+                        "body": comment.strip(),
+                        "side": "RIGHT"
+                    })
+                except ValueError:
+                    continue  # skip bad lines
     summary = "\n".join(summary_lines).strip()
     return summary, comments
 
@@ -96,12 +91,13 @@ def main():
 
     print("🧠 Sending diff to OpenAI...")
     messages = build_openai_prompt(file_diffs)
-    completions = openai.ChatCompletion.create(
+
+    response = client.chat.completions.create(
         model=openai_model,
         messages=messages,
         temperature=0.3
     )
-    response_text = completions.choices[0].message["content"].strip()
+    response_text = response.choices[0].message.content.strip()
 
     print("🧾 Parsing AI response...")
     summary, inline_comments = parse_openai_response(response_text)
