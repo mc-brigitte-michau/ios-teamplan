@@ -1,0 +1,44 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: ['**']
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  ai_code_review:
+    name: "AI Code Review"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate script existence
+        run: |
+          if [ ! -f Scripts/ai-code-reviewer.py ]; then
+            echo "🚫 Error: ai-code-reviewer.py not found!"
+            exit 1
+          fi
+
+      - name: Install Python dependencies
+        run: pip install openai==1.14.1 requests==2.31.0
+
+      - name: Run comprehensive AI code reviewer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-4o-mini
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python Scripts/ai-code-reviewer.py
