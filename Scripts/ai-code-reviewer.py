@@ -1,18 +1,13 @@
 import os
 import requests
-from openai import OpenAI
+import openai
 
-# Environment Variables
+openai.api_key = os.environ["OPENAI_API_KEY"]
+
 github_token = os.environ["GITHUB_TOKEN"]
 openai_model = os.environ.get("OPENAI_MODEL", "gpt-4")
 repo = os.environ["GITHUB_REPOSITORY"]
 pr_number = os.environ["PR_NUMBER"]
-
-# Remove proxies if present (fixes httpx client injection bug)
-os.environ.pop("HTTP_PROXY", None)
-os.environ.pop("HTTPS_PROXY", None)
-
-client = OpenAI()
 
 headers = {
     "Authorization": f"token {github_token}",
@@ -73,7 +68,7 @@ def parse_openai_response(text):
                         "side": "RIGHT"
                     })
                 except ValueError:
-                    continue  # skip bad lines
+                    continue
     summary = "\n".join(summary_lines).strip()
     return summary, comments
 
@@ -96,12 +91,12 @@ def main():
     print("🧠 Sending diff to OpenAI...")
     messages = build_openai_prompt(file_diffs)
 
-    response = client.chat.completions.create(
+    response = openai.ChatCompletion.create(
         model=openai_model,
         messages=messages,
         temperature=0.3
     )
-    response_text = response.choices[0].message.content.strip()
+    response_text = response.choices[0].message["content"].strip()
 
     print("🧾 Parsing AI response...")
     summary, inline_comments = parse_openai_response(response_text)
