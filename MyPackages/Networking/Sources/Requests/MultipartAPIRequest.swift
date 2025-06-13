@@ -42,7 +42,13 @@ public struct UploadCVImageRequest: MultipartAPIRequest {
 }
 
 public struct UploadResponse: Decodable {
-    public let aws_url: String
+    public let awsUrl: String
+}
+
+extension UploadResponse {
+    private enum CodingKeys: String, CodingKey {
+        case awsUrl = "aws_url"
+    }
 }
 
 /*
@@ -57,4 +63,3 @@ public struct UploadResponse: Decodable {
  let urlRequest = buildMultipartRequest(uploadRequest, baseURL: "https://baseapi.com")
 
  */
-

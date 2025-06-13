@@ -1,9 +1,9 @@
-import Security
 import Foundation
+import Security
 
 public enum KeychainKey: String {
-    case authUser = "auth_user"
     case authToken = "cv_tool_access_token"
+    case authUser = "auth_user"
 }
 
 public struct KeychainStorageBox: @unchecked Sendable {
@@ -25,11 +25,13 @@ public protocol KeychainStorage {
 }
 
 public struct KeychainStorageImpl: KeychainStorage {
-
     public init() {}
 
     public func storeCookieToKeychain(_ cookie: HTTPCookie) {
-        guard let data = try? NSKeyedArchiver.archivedData(withRootObject: cookie, requiringSecureCoding: false) else { return }
+        guard let data = try? NSKeyedArchiver.archivedData(
+            withRootObject: cookie,
+            requiringSecureCoding: false
+        ) else { return }
 
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -74,7 +76,11 @@ public struct KeychainStorageImpl: KeychainStorage {
         SecItemDelete(query as CFDictionary)
         let status = SecItemAdd(query as CFDictionary, nil)
         if status != errSecSuccess {
-            throw NSError(domain: "KeychainError", code: Int(status), userInfo: [NSLocalizedDescriptionKey: "Failed to save to Keychain"])
+            throw NSError(
+                domain: "KeychainError",
+                code: Int(status),
+                userInfo: [NSLocalizedDescriptionKey: "Failed to save to Keychain"]
+            )
         }
     }
 
@@ -95,7 +101,11 @@ public struct KeychainStorageImpl: KeychainStorage {
 
         guard status == errSecSuccess,
               let data = result as? Data else {
-            throw NSError(domain: "KeychainError", code: Int(status), userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve from Keychain"])
+            throw NSError(
+                domain: "KeychainError",
+                code: Int(status),
+                userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve from Keychain"]
+            )
         }
 
         return try JSONDecoder().decode(T.self, from: data)

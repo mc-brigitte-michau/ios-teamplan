@@ -14,7 +14,7 @@ public protocol APIRequest: Sendable {
 
 public  extension APIRequest {
     var bodyData: Data? {
-        guard let body = body else { return nil }
+        guard let body else { return nil }
         return try? JSONEncoder().encode(body)
     }
 }

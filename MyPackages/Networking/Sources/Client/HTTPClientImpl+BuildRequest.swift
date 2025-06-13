@@ -1,10 +1,9 @@
 import Foundation
+import Logging
 import Models
 import Requests
-import Logging
 
 extension HTTPClientImpl {
-
     func buildRequest(_ request: some APIRequest) throws -> URLRequest {
         var path = request.endpoint
         for (key, value) in request.pathParameters {
@@ -17,8 +16,8 @@ extension HTTPClientImpl {
         components.scheme = "https"
         components.path += path
         if !request.queryParameters.isEmpty {
-            components.queryItems = request.queryParameters.map {
-                URLQueryItem(name: $0.key, value: $0.value)
+            components.queryItems = request.queryParameters.map { parameter in
+                URLQueryItem(name: parameter.key, value: parameter.value)
             }
         }
         guard let url = components.url else {
@@ -37,9 +36,9 @@ extension HTTPClientImpl {
 
         urlRequest.setValue("*/*", forHTTPHeaderField: "Accept")
 
-        // FIXME:  **VERY IMPORTANT**: send If-None-Match with the latest ETag
-        //        let etagValue = #"W/"65a-tkdZSPtsMOfZ1aSNE9H97BksrPc""#
-        //        urlRequest.setValue(etagValue, forHTTPHeaderField: "If-None-Match")
+        // FIXME: **VERY IMPORTANT**: send If-None-Match with the latest ETag
+        // let etagValue = #"W/"65a-tkdZSPtsMOfZ1aSNE9H97BksrPc""#
+        // urlRequest.setValue(etagValue, forHTTPHeaderField: "If-None-Match")
 
         if let bodyData = request.bodyData {
             urlRequest.httpBody = bodyData
@@ -49,10 +48,16 @@ extension HTTPClientImpl {
         return urlRequest
     }
 
-    func buildMultipartRequest(_ request: some MultipartAPIRequest) -> URLRequest {
+    func buildMultipartRequest(_ request: some MultipartAPIRequest) -> URLRequest? {
         let boundary = UUID().uuidString
+
+        guard let url = URL(string: baseURL + request.endpoint) else {
+            AppLogger.network.debug("❌ Invalid URL")
+            return nil
+        }
+
         var urlRequest = URLRequest(
-            url: URL(string: baseURL + request.endpoint)!,
+            url: url,
             cachePolicy: .reloadIgnoringLocalCacheData
         )
 
@@ -61,24 +66,31 @@ extension HTTPClientImpl {
 
         var body = Data()
 
+        func safeAppend(_ string: String) {
+            guard let data = string.data(using: .utf8) else {
+                AppLogger.network.debug("❌ Failed to encode string: \(string)")
+                return
+            }
+            body.append(data)
+        }
+
         for (key, value) in request.fields {
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
-            body.append("\(value)\r\n".data(using: .utf8)!)
+            safeAppend("--\(boundary)\r\n")
+            safeAppend("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+            safeAppend("\(value)\r\n")
         }
 
         for file in request.files {
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"\(file.name)\"; filename=\"\(file.filename)\"\r\n".data(using: .utf8)!)
-            body.append("Content-Type: \(file.mimeType)\r\n\r\n".data(using: .utf8)!)
+            safeAppend("--\(boundary)\r\n")
+            safeAppend("Content-Disposition: form-data; name=\"\(file.name)\"; filename=\"\(file.filename)\"\r\n")
+            safeAppend("Content-Type: \(file.mimeType)\r\n\r\n")
             body.append(file.data)
-            body.append("\r\n".data(using: .utf8)!)
+            safeAppend("\r\n")
         }
 
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+        safeAppend("--\(boundary)--\r\n")
 
         urlRequest.httpBody = body
-
         return urlRequest
     }
 }

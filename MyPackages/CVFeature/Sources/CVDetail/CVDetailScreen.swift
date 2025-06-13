@@ -1,9 +1,8 @@
-import SwiftUI
 import CVStore
+import SwiftUI
 import ViewState
 
 public struct CVDetailScreen: View {
-
     @EnvironmentObject private var cvStore: CVStore
 
     public var body: some View {
@@ -11,8 +10,7 @@ public struct CVDetailScreen: View {
         Text(cvStore.currentResume?.resumeName ?? "something is wrong")
     }
 
-    public init() {
-    }
+    public init() {}
 }
 
 #Preview {

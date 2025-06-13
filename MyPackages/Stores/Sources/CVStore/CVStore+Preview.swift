@@ -1,9 +1,8 @@
-import Services
 import Models
+import Services
 import SharedStore
 
 extension CVStore {
-
     private static var mockCVService: MockCVService {
         var service = MockCVService()
         service.candidatesToReturn = [.mock]
@@ -41,7 +40,4 @@ extension CVStore {
         store.currentResume = .mock
         return store
     }
-
-
-
 }

@@ -1,13 +1,13 @@
-extension Education {
-    public static let mock = Education(
+public extension Education {
+    static let mock = Education(
         show: true,
         data: [.mock],
         heading: "Education"
     )
 }
 
-extension EducationData {
-    public static let mock = EducationData(
+public extension EducationData {
+    static let mock = EducationData(
         id: "edu-001",
         major: "Computer Science",
         endDate: "2018-06",

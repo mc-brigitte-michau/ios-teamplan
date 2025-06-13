@@ -1,5 +1,5 @@
-extension Resume {
-    public static let mock = Resume(
+public extension Resume {
+    static let mock = Resume(
         id: "resume-001",
         resumeName: "Senior iOS Developer",
         skills: .mock,

@@ -1,8 +1,8 @@
-import Foundation
-import Services
-import Models
 import DataStorage
+import Foundation
 import Logging
+import Models
+import Services
 
 @MainActor
 public protocol UserStoreProtocol: AnyObject, ObservableObject {
@@ -13,12 +13,19 @@ public protocol UserStoreProtocol: AnyObject, ObservableObject {
 }
 
 public class UserStore: UserStoreProtocol, @unchecked Sendable {
-
     @Published public var isLoggedIn: Bool = false
     @Published public var user: AuthUser?
 
     private let service: AuthService
     private let keychainStorage: KeychainStorage
+
+    public init(
+        service: AuthService,
+        keychainStorage: KeychainStorage
+    ) {
+        self.service = service
+        self.keychainStorage = keychainStorage
+    }
 
     public func signIn() async throws {
         let result = try await service.signIn()
@@ -33,20 +40,11 @@ public class UserStore: UserStoreProtocol, @unchecked Sendable {
         self.user = nil
         isLoggedIn = false
     }
-
-    public init(
-        service: AuthService,
-        keychainStorage: KeychainStorage
-    ) {
-        self.service = service
-        self.keychainStorage = keychainStorage
-    }
 }
 
 // MARK: Session
 
 extension UserStore {
-
     public func restoreSession() async {
         if let savedUser = try? keychainStorage.retrieve(type: AuthUser.self, for: .authUser) {
             self.user = savedUser
@@ -68,7 +66,7 @@ extension UserStore {
         }
     }
 
-    private  func clearSessionCookies() {
+    private func clearSessionCookies() {
         let cookieNames = [KeychainKey.authToken.rawValue]
 
         for name in cookieNames {

@@ -227,6 +227,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ECAE96212DC4C28300C44575 /* Build configuration list for PBXNativeTarget "Teamplan" */;
 			buildPhases = (
+				EC2E35DE2DFB18AD00EEBD72 /* SwiftLint */,
 				ECAE95F92DC4C28200C44575 /* Sources */,
 				ECAE95FA2DC4C28200C44575 /* Frameworks */,
 				ECAE95FB2DC4C28200C44575 /* Resources */,
@@ -341,6 +342,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EC2E35DE2DFB18AD00EEBD72 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CI\" = \"true\" ]; then\n  echo \"Skipping SwiftLint in CI\"\n  exit 0\nfi\n\n# Explicitly add Homebrew path for Apple Silicon Macs\nexport PATH=\"/opt/homebrew/bin:$PATH\"\n\nCONFIG_PATH=\"${PROJECT_DIR}/../.swiftlint.yml\"\nSWIFTLINT=\"/opt/homebrew/bin/swiftlint\"\n\necho \"✅ SwiftLint phase is running\"\necho \"Using config at: $CONFIG_PATH\"\n\nif [ -x \"$SWIFTLINT\" ]; then\n  \"$SWIFTLINT\" lint --config \"$CONFIG_PATH\"\nelse\n  echo \"❌ SwiftLint binary not found at $SWIFTLINT\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ECA827342DD340F40074E2DA /* Sources */ = {

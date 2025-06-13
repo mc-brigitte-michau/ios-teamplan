@@ -1,5 +1,5 @@
-extension Candidate {
-    public static let mock = Candidate(
+public extension Candidate {
+    static let mock = Candidate(
         id: "user-001",
         resumes: [.mock],
         fullName: "Barabar Cave",

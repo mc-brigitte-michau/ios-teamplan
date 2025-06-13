@@ -1,8 +1,7 @@
-import Models
 import Foundation
+import Models
 
 public struct MockAuthService: AuthService {
-
     public var authUserToReturn: AuthUser?
     public var signInError: HTTPClientError?
 
@@ -21,8 +20,10 @@ public struct MockAuthService: AuthService {
         }
         return authUserToReturn
     }
-    
+
     public func logout() async throws {
+#if DEBUG
         print("Mock logout called")
+#endif
     }
 }

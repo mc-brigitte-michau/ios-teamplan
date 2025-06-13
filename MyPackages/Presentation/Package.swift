@@ -19,7 +19,8 @@ let package = Package(
             dependencies: [
                 "Theme",
                 "ViewComponents",
-                "ViewState"
+                "ViewState",
+                "DesignTokens"
             ]
         ),
         .target(
@@ -32,6 +33,10 @@ let package = Package(
         ),
         .target(
             name: "ViewState",
+            dependencies: []
+        ),
+        .target(
+            name: "DesignTokens",
             dependencies: []
         ),
         .testTarget(

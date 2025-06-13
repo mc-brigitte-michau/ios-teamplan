@@ -10,5 +10,6 @@ public struct ListCVsRequest: APIRequest {
     public let pathParameters: [String: String] = [:]
     public let queryParameters: [String: String] = [:]
     public let body: Body? = nil
+
     public init() {}
 }

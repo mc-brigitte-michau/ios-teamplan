@@ -36,7 +36,6 @@ let package = Package(
                 .product(name: "UserStore", package: "Stores"),
                 .product(name: "Models", package: "Models"),
                 .product(name: "Presentation", package: "Presentation")
-
             ],
             resources: [.process("Localizable.xcstrings")]
         ),

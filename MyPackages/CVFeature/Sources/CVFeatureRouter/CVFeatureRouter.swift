@@ -1,12 +1,11 @@
-import SwiftUI
 import AddCV
+import CVDetail
 import CVList
 import CVStore
-import CVDetail
+import SwiftUI
 import Theme
 
 public struct CVFeatureRouter: View {
-
     @ObservedObject var cvStore: CVStore
     let theme: Theme
 
@@ -15,51 +14,17 @@ public struct CVFeatureRouter: View {
 
     public var body: some View {
         NavigationStack {
-            CVListScreen(
-                onEvent: { event in
-                    switch event {
-                    case let .select(cv):
-                        route = .detail(cv)
-
-                    case .add:
-                        route = .add
-                    }
+            CVListScreen(onEvent: handleEvent)
+                .onChange(of: route, perform: handleRouteChange)
+                .navigationDestination(isPresented: isDetailPresentedBinding) {
+                    CVDetailScreen()
                 }
-            )
-            .onChange(of: route) { newRoute in
-                switch newRoute {
-                case .list:
-                    cvStore.currentResume = nil
-                    showingAddSheet = false
-
-                case .detail(let cv):
-                    cvStore.currentResume = cv
-                    showingAddSheet = false
-
-                case .add:
-                    cvStore.currentResume = nil
-                    showingAddSheet = true
-                }
-            }
-            .navigationDestination(
-                isPresented:
-                    Binding(
-                        get: { cvStore.currentResume != nil },
-                        set: { isPresented in
-                            if !isPresented {
-                                cvStore.currentResume = nil
-                            }
+                .sheet(isPresented: $showingAddSheet) {
+                    AddCVScreen()
+                        .onDisappear {
+                            route = .list
                         }
-                    )
-            ) {
-                   CVDetailScreen()
-            }
-            .sheet(isPresented: $showingAddSheet) {
-                AddCVScreen()
-                    .onDisappear {
-                        route = .list
-                    }
-            }
+                }
         }
         .environmentObject(cvStore)
         .environment(\.theme, theme)
@@ -71,5 +36,41 @@ public struct CVFeatureRouter: View {
     ) {
         self.cvStore = cvStore
         self.theme = theme
+    }
+}
+
+private extension CVFeatureRouter {
+    var isDetailPresentedBinding: Binding<Bool> {
+        Binding(
+            get: { cvStore.currentResume != nil },
+            set: { isPresented in
+                if !isPresented {
+                    cvStore.currentResume = nil
+                }
+            }
+        )
+    }
+
+    func handleEvent(_ event: CVListEvent) {
+        switch event {
+        case let .select(cv):
+            route = .detail(cv)
+        case .add:
+            route = .add
+        }
+    }
+
+    func handleRouteChange(_ newRoute: CVRoute) {
+        switch newRoute {
+        case .list:
+            cvStore.currentResume = nil
+            showingAddSheet = false
+        case .detail(let cv):
+            cvStore.currentResume = cv
+            showingAddSheet = false
+        case .add:
+            cvStore.currentResume = nil
+            showingAddSheet = true
+        }
     }
 }

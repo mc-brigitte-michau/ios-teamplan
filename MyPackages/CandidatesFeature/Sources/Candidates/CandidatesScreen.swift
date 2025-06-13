@@ -1,12 +1,12 @@
-import SwiftUI
 import CVStore
-import Presentation
 import Models
+import Presentation
+import SwiftUI
 
 public struct CandidatesScreen: View {
-
-    @EnvironmentObject private var store: CVStore
-    @Environment(\.theme) private var theme
+    @EnvironmentObject var store: CVStore
+    @Environment(\.theme)
+    private var theme
     @State private var loadState: LoadState
     @State private var searchText = ""
 
@@ -32,8 +32,7 @@ public struct CandidatesScreen: View {
         }
     }
 
-    @ViewBuilder
-    private var contentView: some View {
+    @ViewBuilder private var contentView: some View {
         switch loadState {
         case .idle, .loading:
             LoadingView(text: "Loading Candidates...")
@@ -51,8 +50,7 @@ public struct CandidatesScreen: View {
 
     private var candidatesList: some View {
         List(filteredCandidates) { candidate in
-            Text(candidate.fullName)
-                .listRowBackground(theme.backgroundColor) 
+            Text(candidate.fullName).listRowBackground(theme.backgroundColor)
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
@@ -66,6 +64,17 @@ public struct CandidatesScreen: View {
 }
 
 private extension CandidatesScreen {
+    private var filteredCandidates: [Candidate] {
+        if searchText.isEmpty {
+            return store.candidates
+        } else {
+            let lowercasedSearch = searchText.lowercased()
+            return store.candidates.filter { candidate in
+                candidate.searchIndex.contains(lowercasedSearch)
+            }
+        }
+    }
+
     func loadCandidates() async {
         loadState = .loading
         do {
@@ -79,21 +88,9 @@ private extension CandidatesScreen {
             loadState = .failed(error.localizedDescription)
         }
     }
-
-    private var filteredCandidates: [Candidate] {
-        if searchText.isEmpty {
-            return store.candidates
-        } else {
-            let lowercasedSearch = searchText.lowercased()
-            return store.candidates.filter { candidate in
-                candidate.searchIndex.contains(lowercasedSearch)
-            }
-        }
-    }
 }
 
 struct CandidatesScreen_Previews: PreviewProvider {
-
     static var previews: some View {
         Group {
             CandidatesScreen(loadState: .loaded)

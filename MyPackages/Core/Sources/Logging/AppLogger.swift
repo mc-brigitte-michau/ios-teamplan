@@ -1,8 +1,7 @@
-import os
 import Foundation
+import os
 
 public enum AppLogger {
-
     public static let network = Logger(subsystem: subsystem, category: "network")
     public static let auth = Logger(subsystem: subsystem, category: "auth")
     public static let ui = Logger(subsystem: subsystem, category: "ui")

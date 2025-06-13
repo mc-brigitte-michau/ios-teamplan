@@ -1,9 +1,9 @@
+import AuthenticationServices
+import Client
 import Foundation
 import Models
-import AuthenticationServices
-import SwiftUI
 import Requests
-import Client
+import SwiftUI
 
 public protocol AuthService: Sendable {
     func signIn() async throws -> AuthUser
@@ -11,7 +11,6 @@ public protocol AuthService: Sendable {
 }
 
 public class AuthServiceImpl: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding, AuthService {
-
     private let httpClient: HTTPClient & Sendable
 
     private var authSession: ASWebAuthenticationSession?
@@ -38,7 +37,9 @@ public class AuthServiceImpl: NSObject, ObservableObject, ASWebAuthenticationPre
     }
 
     public func logout() async throws {
-        fatalError()
+#if DEBUG
+        fatalError("logout() called on unimplemented stub.")
+#endif
     }
 
     private func authorize(with code: String) async throws -> AuthUser {
@@ -53,16 +54,14 @@ public class AuthServiceImpl: NSObject, ObservableObject, ASWebAuthenticationPre
     public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
-            .flatMap { $0.windows }
-            .first { $0.isKeyWindow } ?? ASPresentationAnchor()
+            .flatMap(\.windows)
+            .first(where: \.isKeyWindow) ?? ASPresentationAnchor()
     }
 }
 
 // MARK: AWS Cognito
 private extension AuthServiceImpl {
-
     func startAWSCognitoLogin() async throws -> String {
-
         let authUrlString = """
         https://\(domain)/login?response_type=\(responseType)&client_id=\(clientId)&redirect_uri=\(redirectUri)
         """
@@ -72,20 +71,19 @@ private extension AuthServiceImpl {
         }
 
         return try await withCheckedThrowingContinuation { continuation in
-
-            authSession = ASWebAuthenticationSession(url: authUrl, callbackURLScheme: "teamplan") { callbackURL, error in
-
-                if let error = error {
+            authSession = ASWebAuthenticationSession(
+                url: authUrl,
+                callbackURLScheme: "teamplan"
+            ) { callbackURL, error in
+                if let error {
                     continuation.resume(throwing: error)
                     return
                 }
-
-                guard let callbackURL = callbackURL,
+                guard let callbackURL,
                       let code = URLComponents(url: callbackURL, resolvingAgainstBaseURL: false)?
                     .queryItems?.first(where: { $0.name == "code" })?.value else {
                     continuation.resume(throwing: HTTPClientError.authorizationFailed)
                     return
-
                 }
                 continuation.resume(returning: code)
             }

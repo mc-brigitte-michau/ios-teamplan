@@ -1,15 +1,15 @@
+import CVStore
+import Models
+import Presentation
 import SwiftUI
 import ViewState
-import CVStore
-import Presentation
-import Models
 
 public struct CVListScreen: View {
-    
     @EnvironmentObject private var cvStore: CVStore
-    @Environment(\.theme) private var theme
+    @Environment(\.theme)
+    private var theme
     public var onEvent: (CVListEvent) -> Void
-    
+
     public var body: some View {
         NavigationStack {
             ZStack {
@@ -28,6 +28,7 @@ public struct CVListScreen: View {
                         onEvent(.add)
                     } label: {
                         Image(systemName: "plus")
+                            .accessibilityLabel("Add")
                     }
                 }
             }
@@ -41,20 +42,20 @@ public struct CVListScreen: View {
         }
     }
 
-    @ViewBuilder
-    private var contentView: some View {
+    @ViewBuilder private var contentView: some View {
         switch cvStore.listLoadState {
-        case .idle, .loading:
+        case .idle,
+                .loading:
             LoadingView(text: "Loading CVs...")
 
         case .loaded:
             VStack(spacing: 0) {
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: Spacing.sm) {
                     Text(cvStore.myResume?.fullName ?? "No Name")
                     Text(cvStore.myResume?.id ?? "No email")
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
+                .padding(.horizontal, Spacing.md)
+                .padding(.vertical, Spacing.sm)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(theme.backgroundColor)
 
@@ -67,6 +68,7 @@ public struct CVListScreen: View {
                     .onTapGesture {
                         onEvent(.select(resume))
                     }
+                    .accessibilityAddTraits(.isButton)
                     .listRowBackground(theme.backgroundColor)
                 }
                 .listStyle(.plain)
@@ -74,12 +76,12 @@ public struct CVListScreen: View {
             }
             .background(theme.backgroundColor)
 
-            case .empty:
-                Text("No resume found. Please add one.")
+        case .empty:
+            Text("No resume found. Please add one.")
 
-            case .failed(let error):
-                Text("Failed to load resume: \(error)")
-            }
+        case .failed(let error):
+            Text("Failed to load resume: \(error)")
+        }
     }
 
     public init(
@@ -92,21 +94,15 @@ public struct CVListScreen: View {
 struct CandidatesScreen_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CVListScreen(
-                onEvent: { _ in }
-            )
+            CVListScreen { _ in }
             .environmentObject(CVStore.preview)
             .previewDisplayName("Loaded with candidates")
 
-            CVListScreen(
-                onEvent: { _ in }
-            )
+            CVListScreen { _ in }
             .environmentObject(CVStore.previewEmpty)
             .previewDisplayName("Empty state")
 
-            CVListScreen(
-                onEvent: { _ in }
-            )
+            CVListScreen { _ in }
             .environmentObject(CVStore.previewFailure)
             .previewDisplayName("Failed state")
         }

@@ -1,19 +1,18 @@
 public enum HTTPClientError: Error, Equatable {
+    case authorizationFailed
+    case decodingError
+    case generalError
     case invalidResponse
     case serverError(statusCode: Int, body: String)
-    case decodingError
     case timedOut
-    case generalError
-    case authorizationFailed
 }
 
-extension HTTPClientError {
-
-    public var displayMessage: String {
+public extension HTTPClientError {
+     var displayMessage: String {
         switch self {
         case .invalidResponse:
             return "Invalid HTTP response"
-        case .serverError(statusCode: let code, body: let body):
+        case let .serverError(code, body):
             return "Server error (\(code)): \(body)"
         case .decodingError:
             return "Error decoding JSON response"
@@ -24,6 +23,5 @@ extension HTTPClientError {
         case .authorizationFailed:
             return "Login failed or cancelled."
         }
-
     }
 }

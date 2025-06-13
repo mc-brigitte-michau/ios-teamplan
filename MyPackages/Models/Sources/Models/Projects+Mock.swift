@@ -1,13 +1,13 @@
-extension Projects {
-    public static let mock = Projects(
+public extension Projects {
+    static let mock = Projects(
         show: true,
         data: [.mock],
         heading: "Key Projects"
     )
 }
 
-extension Project {
-    public static let mock = Project(
+public extension Project {
+    static let mock = Project(
         id: "project-001",
         technologies: [.mock],
         role: "Lead iOS Developer",
@@ -20,8 +20,8 @@ extension Project {
     )
 }
 
-extension Technology {
-    public static let mock = Technology(
+public extension Technology {
+    static let mock = Technology(
         id: "tech-001",
         show: true,
         label: "SwiftUI"

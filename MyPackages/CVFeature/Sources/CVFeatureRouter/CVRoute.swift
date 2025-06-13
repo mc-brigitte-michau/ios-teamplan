@@ -2,9 +2,9 @@ import CVStore
 import Models
 
 public enum CVRoute {
-    case list
-    case detail(Resume)
     case add
+    case detail(Resume)
+    case list
 }
 
 extension CVRoute: Equatable, Identifiable {
@@ -20,6 +20,7 @@ extension CVRoute: Equatable, Identifiable {
             return "add"
         }
     }
+
     public static func == (lhs: CVRoute, rhs: CVRoute) -> Bool {
         switch (lhs, rhs) {
         case (.list, .list):

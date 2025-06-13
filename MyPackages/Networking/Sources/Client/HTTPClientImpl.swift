@@ -1,8 +1,8 @@
+import DataStorage
 import Foundation
+import Logging
 import Models
 import Requests
-import Logging
-import DataStorage
 
 public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
     private let session: URLSession
@@ -21,7 +21,8 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
         session = URLSession(configuration: config)
     }
 
-    public func send<T: APIRequest>(request: T) async throws -> T.Response where T.Response: Sendable  {
+    public func send<T: APIRequest>(request: T) async throws
+    -> T.Response where T.Response: Sendable {
         AppLogger.network.debug("Request started: \(request.method) \(request.endpoint)")
 
         let urlRequest = try buildRequest(request)
@@ -57,8 +58,11 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
         }
     }
 
-    public func send<T: MultipartAPIRequest>(multipartRequest: T) async throws -> T.Response where T.Response: Sendable {
-        let urlRequest = buildMultipartRequest(multipartRequest)
+    public func send<T: MultipartAPIRequest>(multipartRequest: T) async throws
+    -> T.Response where T.Response: Sendable {
+        guard let urlRequest = buildMultipartRequest(multipartRequest) else {
+            throw HTTPClientError.generalError
+        }
         let (data, response) = try await session.data(for: urlRequest)
         try validateResponse(data, response: response)
 #if DEBUG
@@ -83,7 +87,10 @@ public actor HTTPClientImpl: HTTPClient, @unchecked Sendable {
                 try await Task.sleep(nanoseconds: UInt64(timeout * 1_000_000_000))
                 throw HTTPClientError.timedOut
             }
-            let result = try await group.next()!
+            guard let result = try await group.next() else {
+                group.cancelAll()
+                throw HTTPClientError.generalError
+            }
             group.cancelAll()
             return result
         }

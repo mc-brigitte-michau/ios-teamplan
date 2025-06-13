@@ -1,10 +1,9 @@
-import Theme
-import SwiftUICore
 import Login
+import SwiftUICore
+import Theme
 import UserStore
 
 public struct LoginFeatureRouter: View {
-
     @ObservedObject var userStore: UserStore
     let theme: Theme
 

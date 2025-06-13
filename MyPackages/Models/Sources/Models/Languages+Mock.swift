@@ -1,13 +1,13 @@
-extension Languages {
-    public static let mock = Languages(
+public extension Languages {
+    static let mock = Languages(
         show: true,
         data: [.mock],
         heading: "Languages"
     )
 }
 
-extension Language {
-    public static let mock = Language(
+public extension Language {
+    static let mock = Language(
         id: "lang-001",
         show: true,
         understanding: "Fluent",

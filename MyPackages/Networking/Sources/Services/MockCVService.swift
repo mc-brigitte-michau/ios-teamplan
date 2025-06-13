@@ -1,8 +1,7 @@
-import Models
 import Foundation
+import Models
 
 public struct MockCVService: CVService {
-
     public var candidatesToReturn: [Candidate] = []
     public var candidateToReturn: Candidate?
     public var createdCandidate: Candidate?

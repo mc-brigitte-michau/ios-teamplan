@@ -1,10 +1,9 @@
-import Testing
-import Foundation
 @testable import DataStorage
+import Foundation
+import Testing
 
 @Suite
 struct KeychainStorageTests {
-
     struct DummyUser: Codable, Equatable {
         let id: Int
         let name: String

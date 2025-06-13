@@ -4,7 +4,7 @@ import Logging
 #if DEBUG
 extension HTTPClientImpl {
     func logNetwork(_ method: String, endpoint: String, data: Data?) -> String {
-    return ("""
+    ("""
     🕒 \(Date())
     🔁 \(method) \(endpoint)
     📦 JSON:

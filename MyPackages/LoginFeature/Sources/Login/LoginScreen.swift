@@ -1,11 +1,12 @@
-import SwiftUI
-import Services
-import UserStore
 import Presentation
+import Services
+import SwiftUI
+import UserStore
 
 public struct LoginScreen: View {
     @EnvironmentObject private var store: UserStore
-    @Environment(\.theme) private var theme
+    @Environment(\.theme)
+    private var theme
     @State private var loadState: LoadState
 
     public  var body: some View {
@@ -23,12 +24,7 @@ public struct LoginScreen: View {
         }
     }
 
-    public init(loadState: LoadState = .idle) {
-        self._loadState = State(initialValue: loadState)
-    }
-
-    @ViewBuilder
-    private var contentView: some View {
+    @ViewBuilder private var contentView: some View {
         switch loadState {
         case .idle:
             signInButton
@@ -56,7 +52,11 @@ public struct LoginScreen: View {
         .padding()
         .background(Color.blue)
         .foregroundColor(.white)
-        .cornerRadius(8)
+        .cornerRadius(Radius.sm)
+    }
+
+    public init(loadState: LoadState = .idle) {
+        self._loadState = State(initialValue: loadState)
     }
 
     private func startLogin() async {
@@ -72,7 +72,6 @@ public struct LoginScreen: View {
             loadState = .failed(error.localizedDescription)
         }
     }
-
 }
 
 struct LoginScreen_Previews: PreviewProvider {

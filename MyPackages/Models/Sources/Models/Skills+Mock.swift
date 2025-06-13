@@ -1,13 +1,13 @@
-extension Skills {
-    public static let mock = Skills(
+public extension Skills {
+    static let mock = Skills(
         show: true,
         data: [.mock],
         heading: "Technical Skills"
     )
 }
 
-extension SkillData {
-    public static let mock = SkillData(
+public extension SkillData {
+    static let mock = SkillData(
         id: "skilldata-001",
         show: true,
         details: [.mock],
@@ -15,8 +15,8 @@ extension SkillData {
     )
 }
 
-extension SkillDetail {
-    public static let mock = SkillDetail(
+public extension SkillDetail {
+    static let mock = SkillDetail(
         id: "skilldetail-001",
         show: true,
         label: "Swift"

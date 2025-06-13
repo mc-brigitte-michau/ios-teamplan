@@ -11,7 +11,7 @@ public final class MockKeychainStorage: KeychainStorage {
     }
 
     public func retrieveCookieFromKeychain(named name: String) -> HTTPCookie? {
-        return cookieStorage[name]
+        cookieStorage[name]
     }
 
     public func save<T: Encodable>(value: T, for key: KeychainKey) throws {

@@ -1,9 +1,9 @@
-import SwiftUI
 import Presentation
+import SwiftUI
 
 public struct AddCVScreen: View {
-
-    @Environment(\.theme) private var theme
+    @Environment(\.theme)
+    private var theme
 
     public var body: some View {
         ZStack {

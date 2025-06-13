@@ -1,10 +1,9 @@
-import SwiftUI
-import CVStore
-import Theme
 import Candidates
+import CVStore
+import SwiftUI
+import Theme
 
 public struct CandidatesFeatureRouter: View {
-
     @ObservedObject var cvStore: CVStore
     let theme: Theme
 

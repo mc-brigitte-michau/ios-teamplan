@@ -4,8 +4,7 @@ import Logging
 extension JSONDecoder {
     func decodeDebug<T: Decodable>(_ type: T.Type, from data: Data) -> T? {
         do {
-            let decoded = try self.decode(T.self, from: data)
-            return decoded
+            return try self.decode(T.self, from: data)
         } catch let DecodingError.keyNotFound(key, context) {
             AppLogger.network.debug("❌ Key '\(key.stringValue)' not found: \(context.debugDescription)")
             AppLogger.network.debug("📍 codingPath: \(context.codingPath)")

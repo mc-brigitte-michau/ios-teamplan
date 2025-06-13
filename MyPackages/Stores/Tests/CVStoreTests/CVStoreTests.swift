@@ -1,11 +1,10 @@
-import Testing
+@testable import CVStore
 import Models
 import Services
-@testable import CVStore
+import Testing
 
 @Suite
 struct CVStoreTests {
-
     @Test
     @MainActor
     func fetchResumesPopulatesCandidates() async throws {
@@ -43,7 +42,6 @@ struct CVStoreTests {
     @Test
     @MainActor
     func fetchResumeWithIdPopulatesCandidate() async throws {
-
         // Given
         var mockService = MockCVService()
         mockService.candidateToReturn = .mock
@@ -54,7 +52,7 @@ struct CVStoreTests {
 
         // Then
         #expect(store.currentCandidate?.fullName == Candidate.mock.fullName)
-        #expect(store.currentCandidate?.resumes?.count == 1)
+        #expect(store.currentCandidate?.resumes.count == 1)
     }
 
     @Test
@@ -83,10 +81,8 @@ struct CVStoreTests {
         let createdCandidate = Candidate(from: createResume)
         mockService.createdCandidate = createdCandidate
         let store = CVStore(service: mockService)
-
         // When
         try await store.createResume(resume: createResume)
-
         // Then
         #expect(store.currentCandidate?.fullName == createResume.fullName)
     }
@@ -99,7 +95,6 @@ struct CVStoreTests {
         let clientError: HTTPClientError = .serverError(statusCode: 500, body: "Internal Server Error")
         mockService.createError = clientError
         let store = CVStore(service: mockService)
-
         // When
         do {
             try await store.createResume(resume: .mock)
@@ -116,10 +111,8 @@ struct CVStoreTests {
         var mockService = MockCVService()
         mockService.updatedCandidate = .mock
         let store = CVStore(service: mockService)
-
         // When
         try await store.updateResume(resume: .mock)
-
         // Then
         #expect(store.currentCandidate?.fullName == Candidate.mock.fullName)
     }
@@ -149,11 +142,8 @@ struct CVStoreTests {
         var mockService = MockCVService()
         mockService.deleteID = id
         let store = CVStore(service: mockService)
-        
         // When
-
         try await store.deleteResume(for: id)
-
         // Then
         #expect(mockService.deleteID == id)
     }
@@ -165,7 +155,6 @@ struct CVStoreTests {
         var mockService = MockCVService()
         mockService.deleteError = .generalError
         let store = CVStore(service: mockService)
-
         // When
         do {
             _ = try await store.deleteResume(for: "missing")
@@ -174,5 +163,4 @@ struct CVStoreTests {
             #expect((error as? HTTPClientError) == .generalError)
         }
     }
-
 }

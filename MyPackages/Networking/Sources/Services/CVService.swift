@@ -1,6 +1,6 @@
-import Models
-import Foundation
 import Client
+import Foundation
+import Models
 import Requests
 
 public protocol CVService: Sendable {
@@ -14,7 +14,6 @@ public protocol CVService: Sendable {
 }
 
 public actor CVServiceImpl: CVService {
-
     private let httpClient: HTTPClient & Sendable
 
     public init(httpClient: HTTPClient & Sendable) {
@@ -48,9 +47,8 @@ public actor CVServiceImpl: CVService {
     }
 
     public func getImage(id: String) async throws -> URL? {
+#if DEBUG
         fatalError("not implemented")
+#endif
     }
 }
-
-
-

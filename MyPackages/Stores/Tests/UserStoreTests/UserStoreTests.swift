@@ -1,12 +1,12 @@
-import Testing
-import Services
 import DataStorage
 import Models
+import Services
+import Testing
+
 @testable import UserStore
 
 @Suite
 struct UserStoreTests {
-
     @Test
     @MainActor
     func signInSuccessSetsUserAndIsLoggedIn() async throws {

@@ -1,6 +1,6 @@
 import Foundation
-import Services
 import Models
+import Services
 import SharedStore
 
 @MainActor
@@ -20,11 +20,10 @@ public protocol CVStoreProtocol: AnyObject, ObservableObject {
 }
 
 public class CVStore: CVStoreProtocol, @unchecked Sendable {
-
     @Published public var candidates: [Candidate] = []
-    @Published public var myResume: Candidate? = nil
-    @Published public var currentCandidate: Candidate? = nil
-    @Published public var currentResume: Resume? = nil
+    @Published public var myResume: Candidate?
+    @Published public var currentCandidate: Candidate?
+    @Published public var currentResume: Resume?
 
     @Published public var listLoadState: LoadState = .idle
     @Published public var resumeLoadState: LoadState = .idle
@@ -32,11 +31,15 @@ public class CVStore: CVStoreProtocol, @unchecked Sendable {
 
     private let service: CVService
 
+    public init(service: CVService) {
+        self.service = service
+    }
+
     public func fetchResumes() async throws {
         listLoadState = .loading
         do {
             let result = try await service.fetchCVs()
-            candidates = CVStore.indexCandidates(result)
+            candidates = Self.indexCandidates(result)
             myResume = candidates.first
             // https://v2.teamplan.io/my-resume/anneli.mutso@gmail.com
             // @brigitte find out how this should work
@@ -77,16 +80,11 @@ public class CVStore: CVStoreProtocol, @unchecked Sendable {
 
     public func deleteResume(for id: String) async throws {
         createUpdateLoadState = .loading
-        let _ = try await service.delete(id: id)
-    }
-
-    public init(service: CVService) {
-        self.service = service
+        _ = try await service.delete(id: id)
     }
 }
 
 extension CVStore {
-
     static func indexCandidates(_ candidates: [Candidate]) -> [Candidate] {
         candidates.map { candidate in
             var updated = candidate
@@ -96,14 +94,18 @@ extension CVStore {
     }
 
     static func generateSearchIndex(for candidate: Candidate) -> String {
-        let skillsText = candidate.resumes?.flatMap {
-            $0.skills.data.flatMap { $0.details.map { $0.label } }
-        }.joined(separator: " ")
-        let techsText = candidate.resumes?.flatMap {
-            $0.projects.data.flatMap { $0.technologies.map { $0.label } }
-        }.joined(separator: " ")
-        return "\(candidate.fullName) \(skillsText ?? "") \(techsText ?? "")".lowercased()
+        let skillsText = candidate.resumes
+            .flatMap { resume in
+                resume.skills.data
+                    .flatMap { $0.details.map(\.label) }
+            }
+            .joined(separator: " ")
+        let techsText = candidate.resumes
+            .flatMap { resume in
+                resume.projects.data
+                    .flatMap { $0.technologies.map(\.label) }
+            }
+            .joined(separator: " ")
+        return "\(candidate.fullName) \(skillsText) \(techsText)".lowercased()
     }
 }
-
-

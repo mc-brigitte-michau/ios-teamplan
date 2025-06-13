@@ -1,7 +1,6 @@
 import SwiftUI
 
 public struct LoadingView: View {
-
     let text: String
 
     public var body: some View {
