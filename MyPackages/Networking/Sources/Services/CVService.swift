@@ -46,9 +46,8 @@ public actor CVServiceImpl: CVService {
         return try await httpClient.send(request: request)
     }
 
+    #warning("@brigitte - not implemented")
     public func getImage(id: String) async throws -> URL? {
-#if DEBUG
-        fatalError("not implemented")
-#endif
+        nil
     }
 }
